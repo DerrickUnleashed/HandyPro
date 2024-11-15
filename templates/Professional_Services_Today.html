@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Requests</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+            flex: 1;
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .main-content {
+            flex-grow: 1; /* Allow main content to grow */
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+            flex: 1;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
+        <div class="container">
+            <a class="navbar-brand" href="/">Household Services</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professional_Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 animate__animated animate__fadeInUp">
+        <h1>Services To Be Completed</h1>
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <label for="requestIdFilter" class="form-label">Request ID:</label>
+                <input type="number" class="form-control" id="requestIdFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="serviceNameFilter" class="form-label">Service Name:</label>
+                <input type="text" class="form-control" id="serviceNameFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="customerNameFilter" class="form-label">Customer Name:</label>
+                <input type="text" class="form-control" id="customerNameFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="customerPhoneFilter" class="form-label">Customer Phone:</label>
+                <input type="text" class="form-control" id="customerPhoneFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="customerAddressFilter" class="form-label">Customer Address:</label>
+                <input type="text" class="form-control" id="customerAddressFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="customerPostalCodeFilter" class="form-label">Customer Postal Code:</label>
+                <input type="text" class="form-control" id="customerPostalCodeFilter">
+            </div>
+        </div>
+        {% if requests %}
+            <table class="table table-dark table-striped" id="requestsTable">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Service Name</th>
+                        <th>Customer Name</th>
+                        <th>Customer Phone</th>
+                        <th>Customer Address</th>
+                        <th>Customer PostalCode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                        <tr>
+                            <td>{{ request[4] }}</td>
+                            <td>{{ request[5] }}</td>
+                            <td>{{ request[0] }}</td>
+                            <td>{{ request[1] }}</td>
+                            <td>{{ request[2] }}</td>
+                            <td>{{ request[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No pending requests.</p>
+        {% endif %}
+    </div>
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const requestIdFilter = document.getElementById('requestIdFilter');
+        const serviceNameFilter = document.getElementById('serviceNameFilter');
+        const customerNameFilter = document.getElementById('customerNameFilter');
+        const customerPhoneFilter = document.getElementById('customerPhoneFilter');
+        const customerAddressFilter = document.getElementById('customerAddressFilter');
+        const customerPostalCodeFilter = document.getElementById('customerPostalCodeFilter');
+        const requestsTable = document.getElementById('requestsTable');
+
+        requestIdFilter.addEventListener('input', filterTable);
+        serviceNameFilter.addEventListener('input', filterTable);
+        customerNameFilter.addEventListener('input', filterTable);
+        customerPhoneFilter.addEventListener('input', filterTable);
+        customerAddressFilter.addEventListener('input', filterTable);
+        customerPostalCodeFilter.addEventListener('input', filterTable);
+
+        function filterTable() {
+            const requestId = parseInt(requestIdFilter.value) || '';
+            const serviceName = serviceNameFilter.value.toLowerCase();
+            const customerName = customerNameFilter.value.toLowerCase();
+            const customerPhone = customerPhoneFilter.value.toLowerCase();
+            const customerAddress = customerAddressFilter.value.toLowerCase();
+            const customerPostalCode = customerPostalCodeFilter.value.toLowerCase();
+
+            const rows = requestsTable.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const requestIdCell = parseInt(row.cells[0].textContent) || '';
+                const serviceNameCell = row.cells[1].textContent.toLowerCase();
+                const customerNameCell = row.cells[2].textContent.toLowerCase();
+                const customerPhoneCell = row.cells[3].textContent.toLowerCase();
+                const customerAddressCell = row.cells[4].textContent.toLowerCase();
+                const customerPostalCodeCell = row.cells[5].textContent.toLowerCase();
+
+                const showRow = (requestId === '' || requestIdCell === requestId) &&
+                               (serviceName === '' || serviceNameCell.includes(serviceName)) &&
+                               (customerName === '' || customerNameCell.includes(customerName)) &&
+                               (customerPhone === '' || customerPhoneCell.includes(customerPhone)) &&
+                               (customerAddress === '' || customerAddressCell.includes(customerAddress)) &&
+                               (customerPostalCode === '' || customerPostalCodeCell.includes(customerPostalCode));
+
+                row.style.display = showRow ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

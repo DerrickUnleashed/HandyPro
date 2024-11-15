@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service History</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .main-content {
+            flex-grow: 1; /* Allow main content to grow */
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .close-button-container {
+            display: none; /* Initially hide the container */
+        }
+        tr.accepted .close-button-container {
+            display: block; /* Show container if row has class 'accepted' */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
+        <div class="container">
+            <a class="navbar-brand" href="/">Household Services</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Customer_Homepage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 main-content animate__animated animate__fadeInUp">
+        <h1>Customer Service History</h1>
+        {% if service_history %}
+            <form method="POST">
+            <table class="table table-dark table-striped animate__animated animate__fadeInUp">
+                <thead>
+                    <tr>
+                        <th>RequestID</th>
+                        <th>Professional Name</th>
+                        <th>Professional Email</th>
+                        <th>Service Name</th>
+                        <th>Request Date</th>
+                        <th>Status</th>
+                        <th>Rating</th>
+                        <th>Review</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in service_history %}
+                        <tr class="{% if row[5] == 'Accepted' %} accepted {% endif %}">
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{% if row[5] == 'Accepted' %}<input type="number" name="rating" min="1" max="5" required>{% else %}{{ row[6] }}{% endif %}</td>
+                            <td>{% if row[5] == 'Accepted' %}<textarea name="review" required></textarea>{% else %}{{ row[7] }}{% endif %}</td>
+                            <td>
+                                <div class="close-button-container">
+                                    {% if row[5] == 'Accepted' %}
+                                    <button type="submit" class="btn btn-primary btn-sm close-request-button" name="request_id" value="{{ row[0] }}">Submit Review</button>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </form>
+        {% else %}
+            <p class="animate__animated animate__fadeInUp">No service history found.</p>
+        {% endif %}
+    </div>
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

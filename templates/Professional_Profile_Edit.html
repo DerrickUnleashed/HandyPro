@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .btn-primary{
+            background-color: orange;
+            border-color: black;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+            flex-shrink: 0;
+        }
+        .main-content {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+            text-align: center;
+        }
+        table {
+            width: 75%;
+            margin: 10px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: orange;
+            color: black;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
+        <div class="container">
+            <a class="navbar-brand" href="/">Household Services</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-6 main-content animate__animated animate__fadeInUp">
+        <h1>Customer Profile</h1>
+        {% if customer %}
+            <form method="post">
+            <table class="table table-dark table-striped animate__animated animate__fadeInUp">
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" value="{{ customer[3] }}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" name="email" value="{{ customer[1] }}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><input type="text" name="address" value="{{ customer[6] }}"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password" value="{{ customer[2] }}"></td>
+                </tr>
+                <tr>
+                    <td>Phone Number</td>
+                    <td><input type="tel" name="phone" value="{{ customer[9] }}"></td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td><input type="text" name="experience" value="{{ customer[4] }}"></td>
+                </tr>
+                <tr>
+                    <td>Skills</td>
+                    <td><input type="text" name="skills" value="{{ customer[5] }}"></td>
+                </tr>
+                <tr>
+                    <td>Postal Code</td>
+                    <td><input type="text" name="postal_code" value="{{ customer[8] }}"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="btn btn-primary">Save Changes</button></td>
+                </tr>
+            </table>
+            </form>
+        {% else %}
+            <p>No customer data found.</p>
+        {% endif %}
+    </div>
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showPassword() {
+            document.getElementById('password').classList.remove('hidden');
+        }
+
+        function hidePassword() {
+            document.getElementById('password').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

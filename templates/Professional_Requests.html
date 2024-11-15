@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Requests</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .main-content {
+            flex-grow: 1; /* Allow main content to grow */
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .close-button-container {
+            display: none; /* Initially hide the container */
+        }
+        tr.accepted .close-button-container {
+            display: block; /* Show container if row has class 'accepted' */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
+        <div class="container">
+            <a class="navbar-brand" href="/">Household Services</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professional_Dashboard.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 main-content animate__animated animate__fadeInUp">
+        <h1>Professional Requests</h1>
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <label for="requestIdFilter" class="form-label">Request ID:</label>
+                <input type="number" class="form-control" id="requestIdFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="serviceNameFilter" class="form-label">Service Name:</label>
+                <input type="text" class="form-control" id="serviceNameFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="descriptionFilter" class="form-label">Description:</label>
+                <input type="text" class="form-control" id="descriptionFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="requestDateFilter" class="form-label">Request Date:</label>
+                <input type="text" class="form-control" id="requestDateFilter">
+            </div>
+            <div class="col-md-2">
+                <label for="basePriceFilter" class="form-label">Base Price:</label>
+                <input type="number" class="form-control" id="basePriceFilter">
+            </div>
+        </div>
+        {% if service_history %}
+            <table class="table table-dark table-striped animate__animated animate__fadeInUp" id="requestsTable">
+                <thead>
+                    <tr>
+                        <th>RequestID</th>
+                        <th>Sevice Name</th>
+                        <th>Description</th>
+                        <th>Request Date</th>
+                        <th>Base Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in service_history %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>
+                                <button type="submit" name="request_id" value="{{ row[0] }}" class="btn btn-success">Accept</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="animate__animated animate__fadeInUp">No service history found.</p>
+        {% endif %}
+    </div>
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const requestIdFilter = document.getElementById('requestIdFilter');
+        const serviceNameFilter = document.getElementById('serviceNameFilter');
+        const descriptionFilter = document.getElementById('descriptionFilter');
+        const requestDateFilter = document.getElementById('requestDateFilter');
+        const basePriceFilter = document.getElementById('basePriceFilter');
+        const requestsTable = document.getElementById('requestsTable');
+
+        requestIdFilter.addEventListener('input', filterTable);
+        serviceNameFilter.addEventListener('input', filterTable);
+        descriptionFilter.addEventListener('input', filterTable);
+        requestDateFilter.addEventListener('input', filterTable);
+        basePriceFilter.addEventListener('input', filterTable);
+
+        function filterTable() {
+            const requestId = parseInt(requestIdFilter.value) || '';
+            const serviceName = serviceNameFilter.value.toLowerCase();
+            const description = descriptionFilter.value.toLowerCase();
+            const requestDate = requestDateFilter.value.toLowerCase();
+            const basePrice = parseInt(basePriceFilter.value) || '';
+
+            const rows = requestsTable.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const requestIdCell = parseInt(row.cells[0].textContent) || '';
+                const serviceNameCell = row.cells[1].textContent.toLowerCase();
+                const descriptionCell = row.cells[2].textContent.toLowerCase();
+                const requestDateCell = row.cells[3].textContent.toLowerCase();
+                const basePriceCell = parseInt(row.cells[4].textContent) || '';
+
+                const showRow = (requestId === '' || requestIdCell === requestId) &&
+                               (serviceName === '' || serviceNameCell.includes(serviceName)) &&
+                               (description === '' || descriptionCell.includes(description)) &&
+                               (requestDate === '' || requestDateCell.includes(requestDate)) &&
+                               (basePrice === '' || basePriceCell === basePrice);
+
+                row.style.display = showRow ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

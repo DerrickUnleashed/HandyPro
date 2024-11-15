@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Household Services Application</title>
+    <link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .hero {
+            background: linear-gradient(135deg, orange 25%, black 100%);
+            color: black;
+            padding: 100px 0;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: orange;
+        }
+        .cta-section {
+            background-color: black;
+            color: orange;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+        }
+        .btn-primary{
+            background-color: orange;
+            border-color: black;
+        }
+        .btn-outline-primary{
+            color: orange;
+            border-color: orange;
+        }
+        .btn-light{
+            background-color: black;
+            color: orange;
+        }
+        .btn-outline-light{
+            color: black;
+            border-color: black;
+        }
+        #features .col-md-6 > div { /* Target the parent div */
+            animation: fadeIn 3s ease-in-out infinite; /* Repeat infinitely */
+            animation-fill-mode: forwards;
+        }
+        #features .col-md-6:nth-child(2) > div { /* Target the parent div */
+            animation-delay: 0s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0.25; }
+            to { opacity: 1; }
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+            flex: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
+        <div class="container">
+            <a class="navbar-brand" href="#">Household Services</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Signup_Customer.html">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Signup_Professional.html">Register Professional</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero animate__animated animate__fadeInUp">
+        <div class="container text-center">
+            <h1 class="mb-4">Household Services Application</h1>
+            <p class="lead mb-5">A multi-user platform for comprehensive home services.</p>
+            <a href="Signup_Customer.html" class="btn btn-light btn-lg me-3">Get Started</a>
+            <a href="#learn-more" class="btn btn-outline-light btn-lg" id="learnMoreButton">Learn More</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5 animate__animated animate__fadeInUp">
+        <div class="container">
+            <h2 class="text-center mb-5">Features for Customers and Service Professionals</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-user-shield feature-icon mb-3"></i>
+                        <h3>For Customers</h3>
+                        <ul class="text-start">
+                            <li>Browse and search for services.</li>
+                            <li>Request services with specific details.</li>
+                            <li>Track service requests and their status.</li>
+                            <li>Provide feedback and reviews.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-tools feature-icon mb-3"></i>
+                        <h3>For Service Professionals</h3>
+                        <ul class="text-start">
+                            <li>Create and manage your profile.</li>
+                            <li>View and accept/reject service requests.</li>
+                            <li>Update service status and communicate with customers.</li>
+                            <li>Receive payments for completed services.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section py-5 text-center animate__animated animate__fadeInUp">
+        <div class="container">
+            <h2 class="mb-4">Ready to Make Your Life Easier?</h2>
+            <p class="lead mb-4">Join our platform today and get started with trusted professionals.</p>
+            <a href="Signup_Customer.html" class="btn btn-primary btn-lg me-3">Sign Up Now</a>
+            <a href="#contact" class="btn btn-outline-primary btn-lg">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('learnMoreButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            const target = document.getElementById('features'); // Assuming 'features' section is the target
+            target.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+        });
+    </script>
+</body>
+</html>

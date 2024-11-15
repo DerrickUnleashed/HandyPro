@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Summary</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .main-content {
+            flex-grow: 1;
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
+        <div class="container">
+            <a class="navbar-brand" href="/">Household Services</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin_Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 main-content animate__animated animate__fadeInUp">
+        <h1>Admin Summary</h1>
+        <h2>Overall Customer Ratings</h2>
+        <h5>Average Rating : 4.45</h5>
+        <canvas id="customerRatingsChart"></canvas>
+        <h2>Service Request Summary</h2>
+        <canvas id="requestSummaryChart"></canvas>
+        <h2>Average Rating Over Time</h2>
+        <canvas id="ratingOverTimeChart"></canvas>
+    </div>
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const customerRatingsData = {
+            labels: ['Excellent', 'Good', 'Average', 'Fair', 'Poor'],
+            datasets: [{
+                label: 'Customer Ratings',
+                data: [46, 30, 22, 5, 4],
+                backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const customerRatingsChart = new Chart(document.getElementById('customerRatingsChart'), {
+            type: 'doughnut',
+            data: customerRatingsData,
+            options: {
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+
+        const requestSummaryData = {
+            labels: ['Plumbing Repair', 'Electrical Work', 'Painting', 'Carpet Cleaning', 'Roof Repair', 'HVAC Maintenance','Landscaping', 'Window Cleaning', 'Pest Control', 'Home Inspections', 'Drywall Installation', 'Power Washing', 'House Cleaning', 'Fencing', 'Installation', 'Sewer Line Inspection', 'Moving Services', 'Gutter Cleaning', 'Concrete Work', 'Masonry', 'Bricklaying', 'Appliance Repair'],
+            datasets: [{
+                label: 'Service Requests',
+                data: [25, 20, 30, 25, 15, 10, 15, 20, 10, 15, 20, 10, 15, 5, 10, 5, 10, 5, 10, 25, 5, 15, 5],
+                backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const requestSummaryChart = new Chart(document.getElementById('requestSummaryChart'), {
+            type: 'bar',
+            data: requestSummaryData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 50,
+                        ticks: {
+                            stepSize: 5
+                        }
+                    }
+                }
+            }
+        });
+
+        const ratingData = [];
+        let rating = 3.5;
+        for (let i = 0; i < 45; i++) {
+            rating += Math.random() * 0.5 - 0.25; // Add random fluctuation
+            rating = Math.max(3.2, Math.min(5, rating)); // Keep rating between 3 and 5
+            ratingData.push(rating);
+        }
+
+        const ratingOverTimeChart = new Chart(document.getElementById('ratingOverTimeChart'), {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 45}, (_, i) => `Month ${i + 1}`),
+                datasets: [{
+                    label: 'Average Rating Over Time',
+                    data: ratingData,
+                    borderColor: 'orange',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 5
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

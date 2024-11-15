@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Manage Professionals</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: orange;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: orange;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .footer {
+            background-color: orange;
+            color: black;
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+            flex: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .action-buttons {
+            display: inline-flex; /* Use inline-flex for better button alignment */
+        }
+        .action-buttons form {
+            margin-right: 10px; /* Add spacing between forms */
+        }
+        .btn-approve {
+            background-color: green;
+        }
+        .btn-disapprove {
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
+        <div class="container">
+            <a class="navbar-brand" href="/">Household Services</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin_Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 animate__animated animate__fadeInUp">
+        <h1>Manage Professionals</h1>
+        {% if professionals %}
+            <table class="table table-dark table-striped animate__animated animate__fadeInUp">
+                <thead>
+                    <tr>
+                        <th>Professional ID</th>
+                        <th>Name</th>
+                        <th>Experience</th>
+                        <th>Skills</th>
+                        <th>Phone Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for professional in professionals %}
+                        <tr>
+                            <td>{{ professional[0] }}</td>
+                            <td>{{ professional[3] }}</td>
+                            <td>{{ professional[4] }}</td>
+                            <td>{{ professional[5] }}</td>
+                            <td>{{ professional[9] }}</td>
+                            <td class="action-buttons">
+                                <form method="POST" action="/Admin_Manage_Professionals.html">
+                                    <input type="hidden" name="professional_id" value="{{ professional[0] }}">
+                                    {% if professional[10] == 0 %}
+                                        <input type="hidden" name="action" value="approve">
+                                        <button type="submit" class="btn btn-sm animate__animated animate__fadeInUp btn-approve">Approve</button>
+                                    {% else %}
+                                        <input type="hidden" name="action" value="disapprove">
+                                        <button type="submit" class="btn btn-sm animate__animated animate__fadeInUp btn-disapprove">Disapprove</button>
+                                    {% endif %}
+                                </form>
+                                <form method="POST" action="/Admin_Manage_Professionals.html">
+                                    <input type="hidden" name="professional_id" value="{{ professional[0] }}">
+                                    <input type="hidden" name="action" value="reject">
+                                    <button type="submit" class="btn btn-danger btn-sm animate__animated animate__fadeInUp">Reject</button>
+                                </form>
+                                <a href="/Professional_Profile.html?professional_id={{ professional[0] }}" class="btn btn-info btn-sm animate__animated animate__fadeInUp">Profile</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="animate__animated animate__fadeInUp">No professionals found.</p>
+        {% endif %}
+    </div>
+    <footer class="footer py-4 animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Household Services</h5>
+                    <p>Your go-to platform for reliable home services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect With Us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 Household Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
