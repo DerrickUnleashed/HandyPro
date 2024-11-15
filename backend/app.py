@@ -7,11 +7,19 @@ app.secret_key = "secret_key"
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html',iframeSrc='home.html')
 
 @app.route("/home.html", methods=['GET'])
 def home():
     return render_template('home.html')
+
+@app.route('/signupCustomer', methods=['GET'])
+def signupCustomer():
+    return render_template('index.html',iframeSrc='Signup_Customer.html')
+
+@app.route('/login',methods=['GET'])
+def loginPage():
+    return render_template('index.html',iframeSrc='Login.html')
 
 @app.route('/static/<path:path>')
 def send_static(path):
@@ -56,7 +64,7 @@ def login():
             return redirect(url_for('login'))
         if user[3] == "Admin":
             session['user_type'] = "admin"
-            session['user_id'] = user[0]
+            session['user_iignup_Customer.htmld'] = user[0]
             return redirect(url_for('admin_dashboard'))
         elif user[3] == "Customer":
             session['user_type'] = "customer"

@@ -105,7 +105,6 @@
         .iframe_dim {
             margin-top: 5%;
             width: 100%;
-            min-height: 100vh;
             display: flex;
             flex-direction: column; 
             background-color: blue; 
@@ -132,7 +131,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto ul_list_size">
                     <li class="nav-item button_gap">
-                        <a class="btn btn-outline-light btn-sm button_design" href="Signup_Customer.html">SignUp</a>
+                        <a class="btn btn-outline-light btn-sm button_design" href="signupCustomer">SignUp</a>
                     </li>
                     <li class="nav-item button_gap">
                         <a class="btn btn-outline-light btn-sm button_design" href="Login.html">Login</a>
@@ -145,7 +144,7 @@
         </div>
     </nav>
     <div class="iframe_dim">
-        <iframe src="home.html" name="homepage" title="homepage" class="second-iframe" scrolling="no">
+        <iframe src="{{ iframeSrc }}" name="iFrameOnIndexPage" title="homepage" class="second-iframe" scrolling="no">
         </iframe>
     </div>
     <!-- Footer -->
