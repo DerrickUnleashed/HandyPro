@@ -8,6 +8,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
+        .gap{
+            margin-top : 2%;
+            margin-bottom : 2%;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: black;
@@ -64,7 +68,7 @@
         </div>
     </nav>
     <div class="container mt-5 main-content animate__animated animate__fadeInUp">
-        <h1>Customer Service History</h1>
+        <h1 class="gap">Customer Service History</h1>
         {% if service_history %}
             <form method="POST">
             <table class="table table-dark table-striped animate__animated animate__fadeInUp">
