@@ -21,6 +21,10 @@ def signupCustomer():
 def loginPage():
     return render_template('index.html',iframeSrc='Login.html')
 
+@app.route('/signupProfessional', methods=['GET'])
+def signupProfessional():
+    return render_template('index.html',iframeSrc='Signup_Professional.html')
+
 @app.route('/static/<path:path>')
 def send_static(path):
     return send_from_directory('../frontend/static', path)
