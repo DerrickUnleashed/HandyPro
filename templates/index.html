@@ -8,6 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -84,6 +87,37 @@
         .button_gap {
             margin-left: 2%;
             margin-right: 2%;
+            padding: 2px;
+        }
+        .heading {
+            font-size: 40px;
+            font-family: "Special Elite", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .ul_list_size {
+            width: 60%;
+            margin-left: 0%;
+        }
+        .button_design {
+            font-size: 120%;
+        }
+        .iframe_dim {
+            margin-top: 5%;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; 
+            background-color: blue; 
+            overflow: hidden;
+        }
+        .second-iframe { 
+            flex-grow: 1; 
+            border: none; 
+            margin: 0; 
+            padding: 0;
+            min-height: 100vh;
+            
         }
     </style>
 </head>
@@ -91,79 +125,29 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
         <div class="container">
-            <a class="navbar-brand" href="#">Household Services</a>
+            <a class="navbar-brand heading" href="#">Household Services</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto ul_list_size">
                     <li class="nav-item button_gap">
-                        <a class="btn btn-outline-light btn-sm" href="Signup_Customer.html">SignUp</a>
+                        <a class="btn btn-outline-light btn-sm button_design" href="Signup_Customer.html">SignUp</a>
                     </li>
                     <li class="nav-item button_gap">
-                        <a class="btn btn-outline-light btn-sm" href="Login.html">Login</a>
+                        <a class="btn btn-outline-light btn-sm button_design" href="Login.html">Login</a>
                     </li>
                     <li class="nav-item button_gap">
-                        <a class="btn btn-outline-light btn-sm" href="Signup_Professional.html">Register as a Professional</a>
+                        <a class="btn btn-outline-light btn-sm button_design" href="Signup_Professional.html">Register as a Professional</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <!-- Hero Section -->
-    <header class="hero animate__animated animate__fadeInUp">
-        <div class="container text-center">
-            <h1 class="mb-4">Household Services Application</h1>
-            <p class="lead mb-5">A multi-user platform for comprehensive home services.</p>
-            <a href="Signup_Customer.html" class="btn btn-light btn-lg me-3">Get Started</a>
-            <a href="#learn-more" class="btn btn-outline-light btn-lg" id="learnMoreButton">Learn More</a>
-        </div>
-    </header>
-
-    <!-- Features Section -->
-    <section id="features" class="py-5 animate__animated animate__fadeInUp">
-        <div class="container">
-            <h2 class="text-center mb-5">Features for Customers and Service Professionals</h2>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="text-center">
-                        <i class="fas fa-user-shield feature-icon mb-3"></i>
-                        <h3>For Customers</h3>
-                        <ul class="text-start">
-                            <li>Browse and search for services.</li>
-                            <li>Request services with specific details.</li>
-                            <li>Track service requests and their status.</li>
-                            <li>Provide feedback and reviews.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="text-center">
-                        <i class="fas fa-tools feature-icon mb-3"></i>
-                        <h3>For Service Professionals</h3>
-                        <ul class="text-start">
-                            <li>Create and manage your profile.</li>
-                            <li>View and accept/reject service requests.</li>
-                            <li>Update service status and communicate with customers.</li>
-                            <li>Receive payments for completed services.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action Section -->
-    <section class="cta-section py-5 text-center animate__animated animate__fadeInUp">
-        <div class="container">
-            <h2 class="mb-4">Ready to Make Your Life Easier?</h2>
-            <p class="lead mb-4">Join our platform today and get started with trusted professionals.</p>
-            <a href="Signup_Customer.html" class="btn btn-primary btn-lg me-3">Sign Up Now</a>
-            <a href="#contact" class="btn btn-outline-primary btn-lg">Contact Us</a>
-        </div>
-    </section>
-
+    <div class="iframe_dim">
+        <iframe src="home.html" name="homepage" title="homepage" class="second-iframe" scrolling="no">
+        </iframe>
+    </div>
     <!-- Footer -->
     <footer class="footer py-4 animate__animated animate__fadeInUp">
         <div class="container">

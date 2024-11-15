@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Customer Signup</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: black;
+                color: orange;
+                display: flex;
+                flex-direction: column;
+            }
+            .navbar {
+                background-color: orange;
+                box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            }
+            .navbar-brand {
+                font-weight: bold;
+                color: black;
+            }
+            .footer {
+                background-color: orange;
+                color: black;
+                flex-shrink: 0; /* Prevent footer from shrinking */
+            }
+            .main-content {
+                flex-grow: 1; /* Allow main content to grow */
+            }
+            .btn-primary{
+                background-color: orange;
+                border-color: black;
+            }
+            .container {
+                animation: fadeIn 1s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+        </style>
+    </head>
+    <body>
+      <!-- Hero Section -->
+      <header class="hero animate__animated animate__fadeInUp">
+        <div class="container text-center">
+            <h1 class="mb-4">Household Services Application</h1>
+            <p class="lead mb-5">A multi-user platform for comprehensive home services.</p>
+            <a href="Signup_Customer.html" class="btn btn-light btn-lg me-3">Get Started</a>
+            <a href="#learn-more" class="btn btn-outline-light btn-lg" id="learnMoreButton">Learn More</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Features for Customers and Service Professionals</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-user-shield feature-icon mb-3"></i>
+                        <h3>For Customers</h3>
+                        <ul class="text-start">
+                            <li>Browse and search for services.</li>
+                            <li>Request services with specific details.</li>
+                            <li>Track service requests and their status.</li>
+                            <li>Provide feedback and reviews.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-tools feature-icon mb-3"></i>
+                        <h3>For Service Professionals</h3>
+                        <ul class="text-start">
+                            <li>Create and manage your profile.</li>
+                            <li>View and accept/reject service requests.</li>
+                            <li>Update service status and communicate with customers.</li>
+                            <li>Receive payments for completed services.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section py-5 text-center animate__animated animate__fadeInUp">
+        <div class="container">
+            <h2 class="mb-4">Ready to Make Your Life Easier?</h2>
+            <p class="lead mb-4">Join our platform today and get started with trusted professionals.</p>
+            <a href="Signup_Customer.html" class="btn btn-primary btn-lg me-3">Sign Up Now</a>
+            <a href="#contact" class="btn btn-outline-primary btn-lg">Contact Us</a>
+        </div>
+    </section>
+    </body>
+</html>

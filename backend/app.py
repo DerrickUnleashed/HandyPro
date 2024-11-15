@@ -9,6 +9,10 @@ app.secret_key = "secret_key"
 def index():
     return render_template('index.html')
 
+@app.route("/home.html", methods=['GET'])
+def home():
+    return render_template('home.html')
+
 @app.route('/static/<path:path>')
 def send_static(path):
     return send_from_directory('../frontend/static', path)
