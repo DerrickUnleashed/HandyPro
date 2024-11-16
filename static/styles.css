@@ -1,57 +1,123 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: black;
-    color: orange;
+    background-image: url('3.jpg'); /* Corrected background image path */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    color: black;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
-
 .navbar {
-    background-color: orange;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: black;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
-
 .navbar-brand {
     font-weight: bold;
+    color: white;
+}
+.hero {
+    background: linear-gradient(135deg, orange 25%, black 100%);
+    color: black;
+    padding: 100px 0;
+}
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+.feature-icon {
+    font-size: 3rem;
     color: black;
 }
-
+.cta-section {
+    background-color: black;
+    color: black;
+}
 .footer {
-    background-color: orange;
+    background-image: url('static/4.jpg'); /* Corrected background image path */
+    background-size: cover; 
+    background-repeat: no-repeat; 
     color: black;
 }
-
+.btn-primary{
+    background-color: black;
+    border-color: black;
+}
+.btn-outline-primary{
+    color: black;
+    border-color: black;
+}
+.btn-light{
+    background-color: black;
+    color: black;
+}
+.btn-outline-light{
+    color: black;
+    border-color: black;
+}
+#features .col-md-6 > div { 
+    animation: fadeIn 3s ease-in-out infinite; 
+    animation-fill-mode: forwards;
+}
+#features .col-md-6:nth-child(2) > div { 
+    animation-delay: 0s;
+}
+@keyframes fadeIn {
+    from { opacity: 0.25; }
+    to { opacity: 1; }
+}
 .container {
     animation: fadeIn 1s ease-in-out;
     flex: 1;
 }
-
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
-
-.btn-primary {
-    background-color: orange;
-    border-color: black;
+.button_gap {
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 2px;
 }
-
-.btn-outline-primary {
-    color: orange;
-    border-color: orange;
+.heading {
+    font-size: 40px;
+    font-family: "Special Elite", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
-
-.btn-light {
-    background-color: black;
-    color: orange;
+.ul_list_size {
+    width: 70%;
+    margin-left: 0%;
 }
-
-.btn-outline-light {
-    color: black;
-    border-color: black;
+.button_design {
+    font-size: 80%;
+    color :white;
+    border-color: white;
+}
+.iframe_dim {
+    margin-top: 0.5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    background-color: black; 
+    overflow: hidden;
+}
+.second-iframe { 
+    flex-grow: 1; 
+    border: none; 
+    margin: 0; 
+    padding: 0;
+    min-height: 100vh; 
+    width: 100%; 
+}
+.nav_frame{
+    border: none; 
+    margin: 0; 
+    padding: 0;            
+    height: 7vh; 
+    width: 100%; 
+}
+.nav_dim{
+    background-color: black; 
+    overflow: hidden;
 }

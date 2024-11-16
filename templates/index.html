@@ -11,16 +11,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <script>
+        if (window !== window.top) {
+            window.top.location.href = window.location.href;
+        }
+    </script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('static/4.jpg'); /* Corrected background image path */
+            background-image: url('static/4.jpg');
             background-size: cover; 
             background-repeat: no-repeat; 
             color: black;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
         }
         .navbar {
             background-color: black;
@@ -48,24 +54,25 @@
             color: black;
         }
         .footer {
-            background-image: url('static/4.jpg'); /* Corrected background image path */
+            background-image: url('static/4.jpg');
             background-size: cover; 
             background-repeat: no-repeat; 
             color: black;
+            text-align: center;
         }
-        .btn-primary{
+        .btn-primary {
             background-color: black;
             border-color: black;
         }
-        .btn-outline-primary{
+        .btn-outline-primary {
             color: black;
             border-color: black;
         }
-        .btn-light{
+        .btn-light {
             background-color: black;
             color: black;
         }
-        .btn-outline-light{
+        .btn-outline-light {
             color: black;
             border-color: black;
         }
@@ -82,11 +89,6 @@
         }
         .container {
             animation: fadeIn 1s ease-in-out;
-            flex: 1;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         .button_gap {
             margin-left: 2%;
@@ -105,7 +107,7 @@
         }
         .button_design {
             font-size: 80%;
-            color :white;
+            color: white;
             border-color: white;
         }
         .iframe_dim {
@@ -115,38 +117,37 @@
             flex-direction: column; 
             background-color: black; 
             overflow: hidden;
+            flex: 1; /* Ensures it takes available space */
         }
         .second-iframe { 
             flex-grow: 1; 
             border: none; 
             margin: 0; 
             padding: 0;
-            min-height: 100vh; 
             width: 100%; 
         }
-        .nav_frame{
+        .nav_frame {
             border: none; 
             margin: 0; 
             padding: 0;            
             height: 7vh; 
             width: 100%; 
         }
-        .nav_dim{
+        .nav_dim {
             background-color: black; 
             overflow: hidden;
         }
     </style>
 </head>
 <body>
-        <div class="nav_dim">
-            <iframe src="{{ navbar }}" name="iFrameOnIndexPage" title="homepage" class="nav_frame" scrolling="no">
-            </iframe>
-        </div>
+    <div class="nav_dim">
+        <iframe src="{{ navbar }}" name="iFrameOnIndexPage" title="homepage" class="nav_frame" scrolling="no"></iframe>
+    </div>
 
     <div class="iframe_dim">
-        <iframe src="{{ iframeSrc }}" name="iFrameOnIndexPage" title="homepage" class="second-iframe" scrolling="no">
-        </iframe>
+        <iframe src="{{ iframeSrc }}" name="iFrameOnIndexPage" title="homepage" class="second-iframe" scrolling="no"></iframe>
     </div>
+
     <!-- Footer -->
     <footer class="footer py-4 animate__animated animate__fadeInUp">
         <div class="container">
@@ -184,6 +185,18 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
+        function resizeIframe() {
+            const iframe = document.querySelector('.second-iframe');
+            try {
+                iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+            } catch (error) {
+                console.error("Error resizing iframe:", error);
+            }
+        }
+
+        // Add event listener to adjust iframe height on load
+        document.querySelector('.second-iframe').addEventListener('load', resizeIframe);
+
         document.getElementById('learnMoreButton').addEventListener('click', function(event) {
             event.preventDefault(); 
             const target = document.getElementById('features'); 

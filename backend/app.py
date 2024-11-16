@@ -17,9 +17,12 @@ def index():
 @app.route("/MainNavBar/",methods=['GET','POST'])
 def MainNavBar():
     return render_template('MainNavBar.html')
+@app.route('/home',methods=['GET'])
+def homeredirect():
+    return render_webPage(webPageContent='home.html')
 
 @app.route("/home.html", methods=['GET'])
-def home():
+def home():    
     return render_template('home.html')
 
 @app.route('/signUpCustomer', methods=['GET']) 
@@ -53,8 +56,13 @@ def signupCustomer():
         return redirect(url_for('login'))
     return render_template('Signup_Customer.html')
 
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login',methods=['GET'])
+def login():
+    return render_webPage(webPageContent='Login.html')
+
+@app.route('/Login.html',methods=['GET','POST'])
 def loginPage():
+    print("works")
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -68,7 +76,7 @@ def loginPage():
         if user[3] == "Admin":
             session['user_type'] = "admin"
             session['user_iignup_Customer.htmld'] = user[0]
-            return redirect(url_for('admin_dashboard'))
+            return redirect(url_for('admin'))
         elif user[3] == "Customer":
             session['user_type'] = "customer"
             conn = sqlite3.connect('database.db')
@@ -92,6 +100,10 @@ def loginPage():
         return render_template('Login.html')
 
 @app.route('/signupProfessional', methods=['GET', 'POST'])
+def SIGNUPPROFESSIONAL():
+    return render_webPage(webPageContent='Signup_Professional.html')
+
+@app.route('/Signup_Professional.html',methods=['GET','POST'])
 def signupProfessional():
     if request.method == 'POST':
         name = request.form['name']
@@ -125,11 +137,15 @@ def signupProfessional():
 def send_static(path):
     return send_from_directory('../static', path)
 
+@app.route('/admin',methods=['GET'])
+def admin():
+    return render_webPage(webPageContent='Admin_Dashboard.html')
+
 @app.route('/Admin_Dashboard.html', methods=['GET', 'POST'])
 def admin_dashboard():
     if 'user_type' not in session or session['user_type'] != 'admin':
         return redirect(url_for('login'))
-    return render_template('Admin_Dashboard.html')
+    return render_template('Admin_Dashboard.html',escape_iframe=True)
 
 @app.route('/Customer_Homepage.html')
 def customer_homepage():
