@@ -7,38 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
-            color: orange;
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-        .footer {
-            background-color: orange;
-            color: black;
-        }
-        .navbar {
-            background-color: orange;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-        }
-        .navbar-brand {
-            font-weight: bold;
-            color: black;
-        }
-        .main-content {
-            flex-grow: 1;
-        }
-        .container {
-            animation: fadeIn 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
@@ -179,8 +148,8 @@
         const ratingData = [];
         let rating = 3.5;
         for (let i = 0; i < 45; i++) {
-            rating += Math.random() * 0.5 - 0.25; // Add random fluctuation
-            rating = Math.max(3.2, Math.min(5, rating)); // Keep rating between 3 and 5
+            rating += Math.random() * 0.5 - 0.25; 
+            rating = Math.max(3.2, Math.min(5, rating)); 
             ratingData.push(rating);
         }
 

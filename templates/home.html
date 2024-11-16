@@ -10,13 +10,15 @@
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: black;
-                color: orange;
+                background-image: url('../static/4.jpg'); /* Added background image */
+                background-size: cover; /* Cover the entire viewport */
+                background-repeat: no-repeat; 
+                color: black;
                 display: flex;
                 flex-direction: column;
             }
             .navbar {
-                background-color: orange;
+                background-color: black;
                 box-shadow: 0 2px 4px rgba(0,0,0,.1);
             }
             .navbar-brand {
@@ -24,7 +26,7 @@
                 color: black;
             }
             .footer {
-                background-color: orange;
+                background-color: black;
                 color: black;
                 flex-shrink: 0; /* Prevent footer from shrinking */
             }
@@ -32,7 +34,7 @@
                 flex-grow: 1; /* Allow main content to grow */
             }
             .btn-primary{
-                background-color: orange;
+                background-color: black;
                 border-color: black;
             }
             .container {
@@ -51,7 +53,7 @@
             <h1 class="mb-4">Household Services Application</h1>
             <p class="lead mb-5">A multi-user platform for comprehensive home services.</p>
             <a href="Signup_Customer.html" class="btn btn-light btn-lg me-3">Get Started</a>
-            <a href="#learn-more" class="btn btn-outline-light btn-lg" id="learnMoreButton">Learn More</a>
+            <a href="#learn-more" class="btn btn-light btn-lg" id="learnMoreButton">Learn More</a>
         </div>
     </header>
 
@@ -62,7 +64,7 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="text-center">
-                        <i class="fas fa-user-shield feature-icon mb-3"></i>
+                        <i class="fas fa-user-shield feature-icon mb-3 fa-3x"></i>
                         <h3>For Customers</h3>
                         <ul class="text-start">
                             <li>Browse and search for services.</li>
@@ -74,7 +76,7 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="text-center">
-                        <i class="fas fa-tools feature-icon mb-3"></i>
+                        <i class="fas fa-tools feature-icon mb-3 fa-3x"></i>
                         <h3>For Service Professionals</h3>
                         <ul class="text-start">
                             <li>Create and manage your profile.</li>
@@ -94,7 +96,7 @@
             <h2 class="mb-4">Ready to Make Your Life Easier?</h2>
             <p class="lead mb-4">Join our platform today and get started with trusted professionals.</p>
             <a href="Signup_Customer.html" class="btn btn-primary btn-lg me-3">Sign Up Now</a>
-            <a href="#contact" class="btn btn-outline-primary btn-lg">Contact Us</a>
+            <a href="#contact" class="btn btn-primary btn-lg">Contact Us</a>
         </div>
     </section>
     </body>

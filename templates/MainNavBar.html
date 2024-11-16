@@ -14,10 +14,8 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('static/4.jpg'); /* Corrected background image path */
-            background-size: cover; 
-            background-repeat: no-repeat; 
-            color: black;
+            background-color :black; 
+            color: white;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -48,7 +46,7 @@
             color: black;
         }
         .footer {
-            background-image: url('static/4.jpg'); /* Corrected background image path */
+            background-image: url('../static/4.jpg'); 
             background-size: cover; 
             background-repeat: no-repeat; 
             color: black;
@@ -66,8 +64,8 @@
             color: black;
         }
         .btn-outline-light{
-            color: black;
-            border-color: black;
+            color: white;
+            border-color: white;
         }
         #features .col-md-6 > div { 
             animation: fadeIn 3s ease-in-out infinite; 
@@ -109,7 +107,7 @@
             border-color: white;
         }
         .iframe_dim {
-            margin-top: 0.5%;
+            margin-top: 5%;
             width: 100%;
             display: flex;
             flex-direction: column; 
@@ -121,74 +119,33 @@
             border: none; 
             margin: 0; 
             padding: 0;
-            min-height: 100vh; 
-            width: 100%; 
-        }
-        .nav_frame{
-            border: none; 
-            margin: 0; 
-            padding: 0;            
-            height: 7vh; 
-            width: 100%; 
-        }
-        .nav_dim{
-            background-color: black; 
-            overflow: hidden;
+            min-height: 100vh;
+            
         }
     </style>
 </head>
 <body>
-        <div class="nav_dim">
-            <iframe src="{{ navbar }}" name="iFrameOnIndexPage" title="homepage" class="nav_frame" scrolling="no">
-            </iframe>
+    <div class="container navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
+        <a class="navbar-brand heading" href="./">Household Services</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto ul_list_size">
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/signupCustomer">SignUp</a>
+                </li>
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/login">Login</a>
+                </li>
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/signupProfessional">Register as a Professional</a>
+                </li>
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/logout">Logout</a>
+                </li>
+            </ul>
         </div>
-
-    <div class="iframe_dim">
-        <iframe src="{{ iframeSrc }}" name="iFrameOnIndexPage" title="homepage" class="second-iframe" scrolling="no">
-        </iframe>
     </div>
-    <!-- Footer -->
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('learnMoreButton').addEventListener('click', function(event) {
-            event.preventDefault(); 
-            const target = document.getElementById('features'); 
-            target.scrollIntoView({ behavior: 'smooth' }); 
-        });
-    </script>
 </body>
 </html>

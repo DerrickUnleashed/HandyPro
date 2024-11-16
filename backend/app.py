@@ -2,35 +2,27 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 import sqlite3
 from datetime import datetime
 
-app = Flask(__name__, template_folder='../templates', static_folder='../frontend/static')
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.secret_key = "secret_key"
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html',iframeSrc='home.html')
+    return render_template('index.html',navbar = '/MainNavBar/',iframeSrc='home.html')
+
+@app.route("/MainNavBar/",methods=['GET','POST'])
+def MainNavBar():
+    return render_template('MainNavBar.html')
 
 @app.route("/home.html", methods=['GET'])
 def home():
     return render_template('home.html')
 
-@app.route('/signupCustomer', methods=['GET'])
+@app.route('/signupCustomer', methods=['GET', 'POST']) 
+def SIGNUPCUSTOMER():
+    return render_template('index.html',navbar = '/MainNavBar/',iframeSrc='Signup_Customer.html')
+
+@app.route('/Signup_Customer.html',methods=['GET','POST'])
 def signupCustomer():
-    return render_template('index.html',iframeSrc='Signup_Customer.html')
-
-@app.route('/login',methods=['GET'])
-def loginPage():
-    return render_template('index.html',iframeSrc='Login.html')
-
-@app.route('/signupProfessional', methods=['GET'])
-def signupProfessional():
-    return render_template('index.html',iframeSrc='Signup_Professional.html')
-
-@app.route('/static/<path:path>')
-def send_static(path):
-    return send_from_directory('../frontend/static', path)
-
-@app.route('/Signup_Customer.html', methods=['GET', 'POST'])
-def signup_customer():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -47,15 +39,17 @@ def signup_customer():
             print('Customer registered successfully!')
         except sqlite3.IntegrityError:
             print('Email already exists. Please use a different email.')
+            flash('Email already exists. Please use a different email.', 'error') 
         except Exception as e:
             print(f'An error occurred: {e}')
+            flash(f'An error occurred: {e}', 'error') 
         finally:
             conn.close()
         return redirect(url_for('login'))
     return render_template('Signup_Customer.html')
 
-@app.route('/Login.html', methods=['GET', 'POST'])
-def login():
+@app.route('/login',methods=['GET','POST'])
+def loginPage():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -92,8 +86,8 @@ def login():
     else:
         return render_template('Login.html')
 
-@app.route('/Signup_Professional.html', methods=['GET', 'POST'])
-def signup_professional():
+@app.route('/signupProfessional', methods=['GET', 'POST'])
+def signupProfessional():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -113,12 +107,18 @@ def signup_professional():
             print('Professional registered successfully!')
         except sqlite3.IntegrityError:
             print('Email already exists. Please use a different email.')
+            flash('Email already exists. Please use a different email.', 'error') 
         except Exception as e:
             print(f'An error occurred: {e}')
+            flash(f'An error occurred: {e}', 'error') 
         finally:
             conn.close()
         return redirect(url_for('login'))
     return render_template('Signup_Professional.html')
+
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('../static', path)
 
 @app.route('/Admin_Dashboard.html', methods=['GET', 'POST'])
 def admin_dashboard():
@@ -590,6 +590,10 @@ def professional_profile_edit():
         conn.close()
         return redirect(url_for('professional_profile_edit')) 
     return render_template('Professional_Profile_Edit.html',customer=customer)
+
+@app.route('/Signup_Customer.html', methods=['GET', 'POST'])
+def signup_customer_html():
+    return signupCustomer()
 
 if __name__ == '__main__':
     app.run(debug=True)
