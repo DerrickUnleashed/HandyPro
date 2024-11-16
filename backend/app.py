@@ -7,19 +7,27 @@ app.secret_key = "secret_key"
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html',iframeSrc='home.html')
+    return render_template('index.html',iframeSrc='home',navBarIframe='navBar')
 
-@app.route("/home.html", methods=['GET'])
+@app.route("/home", methods=['GET'])
 def home():
     return render_template('home.html')
 
+@app.route('/navBar',methods=['GET'])
+def navBar():
+    return render_template('Nav_Bar_Create.html')
+
 @app.route('/signupCustomer', methods=['GET'])
 def signupCustomer():
-    return render_template('index.html',iframeSrc='Signup_Customer.html')
+    return window.location.href('signUpCustomer')
+
+@app.route('/signUpCustomer', methods=['GET'])
+def signUpCustomer():
+    return render_template('index.html',iframeSrc='Signup_Customer.html',navBarIframe='navBar')
 
 @app.route('/login',methods=['GET'])
 def loginPage():
-    return render_template('index.html',iframeSrc='Login.html')
+    return render_template('index.html',iframeSrc='Login.html',navBarIframe='navBar')
 
 @app.route('/signupProfessional', methods=['GET'])
 def signupProfessional():

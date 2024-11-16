@@ -121,61 +121,20 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <iframe src="{{ navBarIframe }}" scrolling="no">
-    </iframe>
-    
-    <div class="iframe_dim">
-        <iframe src="{{ iframeSrc }}" name="iFrameOnIndexPage" title="homepage" class="second-iframe" scrolling="no">
-        </iframe>
-    </div>
-    <!-- Footer -->
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-2">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                </br><br>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">Privacy Policy</a></li>
-                        <li><a href="#faq">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
+        <a class="navbar-brand heading" href="./">Household Services</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto ul_list_size">
+                    <li class="nav-item button_gap">
+                        <a class="btn btn-outline-light btn-sm button_design" href="/logout">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('learnMoreButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            const target = document.getElementById('features'); // Assuming 'features' section is the target
-            target.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
-        });
-    </script>
+    </nav>
 </body>
 </html>
