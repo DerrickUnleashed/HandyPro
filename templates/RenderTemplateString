@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Redirecting...</title>
+        <script type="text/javascript">
+            // Redirect the browser to the target URL
+            window.location.href = "/signUpCustomer";
+        </script>
+    </head>
+    <body>
+        <p>Redirecting to <a href="/signUpCustomer">{target_url}</a>...</p>
+    </body>
+    </html>
+    

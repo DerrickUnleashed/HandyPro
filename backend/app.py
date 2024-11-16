@@ -1,13 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session, jsonify, flash
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session, jsonify, flash, make_response, render_template_string
 import sqlite3
 from datetime import datetime
 
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.secret_key = "secret_key"
 
+def render_webPage(navBarContent=None, webPageContent=None):
+    navBarContent = navBarContent or '/MainNavBar/'
+    webPageContent = webPageContent or 'home.html'   
+    return render_template('index.html',navbar = navBarContent,iframeSrc=webPageContent)
+
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html',navbar = '/MainNavBar/',iframeSrc='home.html')
+    return render_webPage()
 
 @app.route("/MainNavBar/",methods=['GET','POST'])
 def MainNavBar():
@@ -17,9 +22,9 @@ def MainNavBar():
 def home():
     return render_template('home.html')
 
-@app.route('/signupCustomer', methods=['GET', 'POST']) 
+@app.route('/signUpCustomer', methods=['GET']) 
 def SIGNUPCUSTOMER():
-    return render_template('index.html',navbar = '/MainNavBar/',iframeSrc='Signup_Customer.html')
+    return render_webPage(webPageContent='Signup_Customer.html')
 
 @app.route('/Signup_Customer.html',methods=['GET','POST'])
 def signupCustomer():
