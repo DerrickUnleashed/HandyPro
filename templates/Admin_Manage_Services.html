@@ -5,93 +5,192 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Manage Services</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="../static/styles.css">
     <style>
-        /* Reset body and html margins/padding */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('static/3.jpg');
+            background-size: cover; 
+            background-repeat: repeat; 
+            color: black;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Flex layout to manage space effectively */
-        body {
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .page-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .service-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-group {
             display: flex;
             flex-direction: column;
         }
 
-        .container {
-            flex: 1; /* Only take up the required space */
-            padding-bottom: 0;
+        .info-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 500;
         }
 
         .action-buttons {
             display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
 
-        .action-buttons > * {
-            margin-right: 5px;
+        .btn-update {
+            background-color: #EAB308;
+            color: white;
+            border: none;
         }
 
-        /* Table styling adjustments */
-        table {
-            margin-bottom: 0; /* Prevent unnecessary space below */
+        .btn-update:hover {
+            background-color: #CA8A04;
+            color: white;
         }
 
-        /* Add margin-top to first element to maintain spacing */
-        .container > *:first-child {
-            margin-top: 0;
+        .btn-delete {
+            background-color: #EF4444;
+            color: white;
+            border: none;
         }
-        .button_gap{
-            margin-left: 89%;
+
+        .btn-delete:hover {
+            background-color: #DC2626;
+            color: white;
+        }
+
+        .btn-details {
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+        }
+
+        .btn-details:hover {
+            background-color: #2563EB;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            color: #6B7280;
+        }
+
+        .add-service-btn {
             background-color: black;
             color: white;
             border-color: black;
-            margin-bottom: 1%;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5 animate__animated animate__fadeInUp">
-        <h1>Manage Services</h1>
-        <a href="/addService" class="btn button_gap btn-lg mt-3 animate__animated animate__fadeInUp">Add Service</a>
+    <div class="dashboard-container animate__animated animate__fadeInUp">
+        <h1 class="page-title">Manage Services</h1>
+        <a href="/addService" class="btn add-service-btn btn-lg animate__animated animate__fadeInUp">
+            <i class="fas fa-plus"></i>
+            Add Service
+        </a>
         {% if services %}
-            <table class="table table-dark table-striped animate__animated animate__fadeInUp">
-                <thead>
-                    <tr>
-                        <th>Service ID</th>
-                        <th>Service Name</th>
-                        <th>Base Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for service in services %}
-                        <tr>
-                            <td>{{ service[0] }}</td>
-                            <td>{{ service[1] }}</td>
-                            <td>{{ service[3] }}</td>
-                            <td class="action-buttons">
-                                <form method="POST" action="/Admin_Manage_Services.html">
-                                    <input type="hidden" name="service_id" value="{{ service[0] }}">
-                                    <input type="hidden" name="action" value="update">
-                                    <button type="button" class="btn btn-warning btn-sm animate__animated animate__fadeInUp" data-bs-toggle="modal" data-bs-target="#updateModal-{{ service[0] }}">Update</button>
-                                </form>
-                                <form method="POST" action="/Admin_Manage_Services.html">
-                                    <input type="hidden" name="service_id" value="{{ service[0] }}">
-                                    <input type="hidden" name="action" value="delete">
-                                    <button type="submit" class="btn btn-danger btn-sm animate__animated animate__fadeInUp" onclick="return confirm('Are you sure you want to delete this service?')">Delete</button>
-                                </form>
-                                <a href="/serviceDetails?service_id={{ service[0] }}" class="btn btn-info btn-sm animate__animated animate__fadeInUp">Details</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% for service in services %}
+                <div class="service-card animate__animated animate__fadeInUp">
+                    <div class="service-info">
+                        <div class="info-group">
+                            <span class="info-label">Service ID</span>
+                            <span class="info-value">#{{ service[0] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Service Name</span>
+                            <span class="info-value">{{ service[1] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Base Price</span>
+                            <span class="info-value">${{ service[3] }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <form method="POST" action="/Admin_Manage_Services.html">
+                            <input type="hidden" name="service_id" value="{{ service[0] }}">
+                            <input type="hidden" name="action" value="update">
+                            <button type="button" class="btn btn-update" data-bs-toggle="modal" data-bs-target="#updateModal-{{ service[0] }}">
+                                <i class="fas fa-pencil-alt"></i>
+                                Update
+                            </button>
+                        </form>
+                        <form method="POST" action="/Admin_Manage_Services.html">
+                            <input type="hidden" name="service_id" value="{{ service[0] }}">
+                            <input type="hidden" name="action" value="delete">
+                            <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this service?')">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </button>
+                        </form>
+                        <a href="/serviceDetails?service_id={{ service[0] }}" class="btn btn-details">
+                            <i class="fas fa-info-circle"></i>
+                            Details
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
-            <p class="animate__animated animate__fadeInUp">No services found.</p>
+            <div class="empty-state animate__animated animate__fadeInUp">
+                <i class="fas fa-tools fa-3x mb-3"></i>
+                <h3>No Services Found</h3>
+                <p>There are currently no services in the system.</p>
+            </div>
         {% endif %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

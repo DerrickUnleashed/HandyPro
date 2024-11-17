@@ -8,130 +8,223 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        .gap {
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-image: url('static/3.jpg');
             background-size: cover;
-            background-repeat: no-repeat;
+            background-repeat: repeat;
+            color: black;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .page-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .service-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-group {
             display: flex;
             flex-direction: column;
         }
-        .footer {
-            background-color: orange;
-            color: black;
-            flex-shrink: 0;
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
         }
-        .navbar {
-            background-color: orange;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+
+        .info-value {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 500;
         }
-        .navbar-brand {
-            font-weight: bold;
-            color: black;
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
-        .main-content {
-            flex-grow: 1;
+
+        .status-requested {
+            background-color: #FEF3C7;
+            color: #D97706;
         }
-        .container {
-            animation: fadeIn 1s ease-in-out;
+
+        .status-accepted {
+            background-color: #D1FAE5;
+            color: #059669;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .review-form {
-            margin: 0;
-            padding: 0;
+
+        .btn-submit {
+            background-color: #10B981;
+            color: white;
+            border: none;
         }
-        .invalid-feedback {
-            display: none;
-            color: #dc3545;
-            font-size: 0.875em;
+
+        .btn-submit:hover {
+            background-color: #059669;
+            color: white;
         }
-        input:invalid + .invalid-feedback {
-            display: block;
-        }
+
         .btn-cancel {
-            background-color: #dc3545;
+            background-color: #EF4444;
             color: white;
-            margin-left: 5px;
+            border: none;
         }
+
         .btn-cancel:hover {
-            background-color: #c82333;
+            background-color: #DC2626;
             color: white;
+        }
+
+        .review-form input,
+        .review-form textarea {
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            padding: 0.5rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .invalid-feedback {
+            color: #EF4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            color: #6B7280;
         }
     </style>
 </head>
 <body>
-    <div class="totgap container mt-5 main-content animate__animated animate__fadeInUp">
-        <h1 class="gap">Customer Service History</h1>
+    <div class="dashboard-container animate__animated animate__fadeInUp">
+        <h1 class="page-title">Customer Service History</h1>
+        
         {% if service_history %}
-            <table class="table table-dark table-striped animate__animated animate__fadeInUp">
-                <thead>
-                    <tr>
-                        <th>RequestID</th>
-                        <th>Professional Name</th>
-                        <th>Professional Email</th>
-                        <th>Service Name</th>
-                        <th>Request Date</th>
-                        <th>Status</th>
-                        <th>Rating</th>
-                        <th>Review</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in service_history %}
-                        <tr class="{% if row[5] == 'Accepted' %} accepted {% endif %}">
-                            <td>{{ row[0] }}</td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }}</td>
-                            <td>{{ row[3] }}</td>
-                            <td>{{ row[4] }}</td>
-                            <td>{{ row[5] }}</td>
-                            <td>
-                                {% if row[5] == 'Accepted' %}
-                                    <form class="review-form" method="POST" onsubmit="return validateForm(this)">
-                                        <input type="hidden" name="request_id" value="{{ row[0] }}">
-                                        <input type="number" name="rating" min="1" max="5" class="form-control form-control-sm" required>
-                                        <div class="invalid-feedback">Please enter a rating between 1 and 5</div>
-                                    </form>
-                                {% else %}
-                                    {{ row[6] }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if row[5] == 'Accepted' %}
-                                    <form class="review-form" method="POST">
-                                        <input type="hidden" name="request_id" value="{{ row[0] }}">
-                                        <textarea name="review" class="form-control form-control-sm" required></textarea>
-                                    </form>
-                                {% else %}
-                                    {{ row[7] }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if row[5] == 'Accepted' %}
-                                    <button onclick="submitReview({{ row[0] }})" class="btn btn-primary btn-sm">Submit Review</button>
-                                {% elif row[5] == 'Requested' %}
-                                    <form method="POST" style="display: inline;">
-                                        <input type="hidden" name="cancel_request_id" value="{{ row[0] }}">
-                                        <button type="button" onclick="confirmCancel({{ row[0] }})" class="btn btn-cancel btn-sm">
-                                            Cancel Request
-                                        </button>
-                                    </form>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% for row in service_history %}
+                <div class="service-card animate__animated animate__fadeInUp">
+                    <div class="service-info">
+                        <div class="info-group">
+                            <span class="info-label">Request ID</span>
+                            <span class="info-value">#{{ row[0] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Professional Name</span>
+                            <span class="info-value">{{ row[1] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Service Name</span>
+                            <span class="info-value">{{ row[3] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Request Date</span>
+                            <span class="info-value">{{ row[4] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Status</span>
+                            <span class="status-badge {% if row[5] == 'Accepted' %}status-accepted{% else %}status-requested{% endif %}">
+                                <i class="fas {% if row[5] == 'Accepted' %}fa-check{% else %}fa-clock{% endif %} me-1"></i>
+                                {{ row[5] }}
+                            </span>
+                        </div>
+                    </div>
+
+                    {% if row[5] == 'Accepted' %}
+                        <div class="review-form">
+                            <div class="service-info">
+                                <div class="info-group">
+                                    <span class="info-label">Rating</span>
+                                    <input type="number" name="rating" min="1" max="5" class="form-control" required>
+                                    <div class="invalid-feedback">Please enter a rating between 1 and 5</div>
+                                </div>
+                                <div class="info-group">
+                                    <span class="info-label">Review</span>
+                                    <textarea name="review" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="text-end mt-3">
+                                <button onclick="submitReview({{ row[0] }})" class="btn btn-submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Submit Review
+                                </button>
+                            </div>
+                        </div>
+                    {% elif row[5] == 'Requested' %}
+                        <div class="text-end mt-3">
+                            <button onclick="confirmCancel({{ row[0] }})" class="btn btn-cancel">
+                                <i class="fas fa-times"></i>
+                                Cancel Request
+                            </button>
+                        </div>
+                    {% else %}
+                        <div class="service-info mt-3">
+                            <div class="info-group">
+                                <span class="info-label">Rating</span>
+                                <span class="info-value">{{ row[6] }}</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Review</span>
+                                <span class="info-value">{{ row[7] }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
         {% else %}
-            <p class="animate__animated animate__fadeInUp">No service history found.</p>
+            <div class="empty-state animate__animated animate__fadeInUp">
+                <i class="fas fa-history fa-3x mb-3"></i>
+                <h3>No Service History</h3>
+                <p>You haven't requested any services yet.</p>
+            </div>
         {% endif %}
     </div>
 
@@ -146,26 +239,23 @@
         }
 
         function submitReview(requestId) {
-            const row = document.querySelector(`tr:has(input[value="${requestId}"])`);
-            const ratingForm = row.querySelector('form:has(input[name="rating"])');
-            const reviewForm = row.querySelector('form:has(textarea[name="review"])');
-            
-            if (!validateForm(ratingForm)) {
-                return;
-            }
-
-            const rating = ratingForm.querySelector('input[name="rating"]').value;
-            const review = reviewForm.querySelector('textarea[name="review"]').value;
+            const card = document.querySelector(`.service-card:has(button[onclick="submitReview(${requestId})"])`);
+            const rating = card.querySelector('input[name="rating"]').value;
+            const review = card.querySelector('textarea[name="review"]').value;
 
             if (!rating || !review) {
                 alert('Please fill in both rating and review');
                 return;
             }
 
-            // Create a combined form to submit both rating and review
-            const combinedForm = document.createElement('form');
-            combinedForm.method = 'POST';
-            combinedForm.style.display = 'none';
+            if (rating < 1 || rating > 5) {
+                alert('Please enter a rating between 1 and 5');
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.style.display = 'none';
 
             const requestIdInput = document.createElement('input');
             requestIdInput.name = 'request_id';
@@ -179,12 +269,12 @@
             reviewInput.name = 'review';
             reviewInput.value = review;
 
-            combinedForm.appendChild(requestIdInput);
-            combinedForm.appendChild(ratingInput);
-            combinedForm.appendChild(reviewInput);
+            form.appendChild(requestIdInput);
+            form.appendChild(ratingInput);
+            form.appendChild(reviewInput);
 
-            document.body.appendChild(combinedForm);
-            combinedForm.submit();
+            document.body.appendChild(form);
+            form.submit();
         }
 
         function confirmCancel(requestId) {
