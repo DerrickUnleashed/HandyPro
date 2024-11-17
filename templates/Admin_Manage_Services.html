@@ -8,35 +8,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="../static/styles.css">
     <style>
-        .action-buttons {
-            display: flex; /* Ensure buttons are inline */
-            align-items: center; /* Vertically align items */
+        /* Reset body and html margins/padding */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
-        .action-buttons > * { /* Add margin between buttons */
+
+        /* Flex layout to manage space effectively */
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1; /* Only take up the required space */
+            padding-bottom: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-buttons > * {
             margin-right: 5px;
+        }
+
+        /* Table styling adjustments */
+        table {
+            margin-bottom: 0; /* Prevent unnecessary space below */
+        }
+
+        /* Add margin-top to first element to maintain spacing */
+        .container > *:first-child {
+            margin-top: 0;
+        }
+        .button_gap{
+            margin-left: 89%;
+            background-color: black;
+            color: white;
+            border-color: black;
+            margin-bottom: 1%;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
-        <div class="container">
-            <a class="navbar-brand" href="/">Household Services</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/Admin_Dashboard.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div class="container mt-5 animate__animated animate__fadeInUp">
         <h1>Manage Services</h1>
-        <a href="/Add_Service.html" class="btn btn-primary mb-3 animate__animated animate__fadeInUp">Add Service</a>
-        <button class="btn btn-primary float-end" onclick="window.location.href='/Admin_Dashboard.html'">Back to Dashboard</button>
+        <a href="/addService" class="btn button_gap btn-lg mt-3 animate__animated animate__fadeInUp">Add Service</a>
         {% if services %}
             <table class="table table-dark table-striped animate__animated animate__fadeInUp">
                 <thead>
@@ -64,7 +84,7 @@
                                     <input type="hidden" name="action" value="delete">
                                     <button type="submit" class="btn btn-danger btn-sm animate__animated animate__fadeInUp" onclick="return confirm('Are you sure you want to delete this service?')">Delete</button>
                                 </form>
-                                <a href="/Service_Details.html?service_id={{ service[0] }}" class="btn btn-info btn-sm animate__animated animate__fadeInUp">Details</a>
+                                <a href="/serviceDetails?service_id={{ service[0] }}" class="btn btn-info btn-sm animate__animated animate__fadeInUp">Details</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -74,38 +94,6 @@
             <p class="animate__animated animate__fadeInUp">No services found.</p>
         {% endif %}
     </div>
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

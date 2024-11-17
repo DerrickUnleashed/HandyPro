@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('../static/4.jpg'); /* Added background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; 
+            min-height: 100vh;
+            color: black;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            background-color: black;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .footer {
+            background-color: black;
+            color: black;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+        }
+        .main-content {
+            flex-grow: 1; /* Allow main content to grow */
+        }
+        .btn-primary{
+            background-color: black;
+            border-color: black;
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 animate__animated animate__fadeInUp">
+        <h1>Terms and Conditions</h1>
+
+        <section class="py-4">
+            <h2>Acceptance of Terms</h2>
+            <p>By using this website, you agree to be bound by these terms and conditions. If you do not agree to these terms, please do not use this website.</p>
+        </section>
+
+        <section class="py-4">
+            <h2>Use of Website</h2>
+            <p>You may use this website for lawful purposes only. You may not use this website in any way that violates any applicable federal, state, local, or international law or regulation.</p>
+        </section>
+
+        <section class="py-4">
+            <h2>Disclaimer of Warranties</h2>
+            <p>This website is provided "as is" without any warranties of any kind. We do not warrant that this website will be uninterrupted or error-free.</p>
+        </section>
+
+        <section class="py-4">
+            <h2>Limitation of Liability</h2>
+            <p>In no event shall we be liable for any damages whatsoever arising out of or in connection with your use of this website.</p>
+        </section>
+
+        <section class="py-4">
+            <h2>Governing Law</h2>
+            <p>These terms and conditions shall be governed by and construed in accordance with the laws of the Indian Constitution.</p>
+        </section>
+    </div>
+</body>
+</html>

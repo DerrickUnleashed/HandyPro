@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('../static/4.jpg'); /* Added background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; 
+            min-height: 100vh;
+            color: black;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            background-color: black;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: black;
+        }
+        .footer {
+            background-color: black;
+            color: black;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+        }
+        .main-content {
+            flex-grow: 1; /* Allow main content to grow */
+        }
+        .btn-primary{
+            background-color: black;
+            border-color: black;
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 animate__animated animate__fadeInUp">
+        <h1>About Us</h1>
+        <p>Welcome to our Household Services Application! We are a team of dedicated professionals committed to providing a seamless and reliable platform connecting customers with skilled service providers for all their household needs.</p>
+
+        <section class="py-4">
+            <h2>Our Mission</h2>
+            <p>Our mission is to simplify the process of finding and booking trusted household services. We strive to provide a user-friendly experience for both customers and professionals, ensuring a smooth and efficient transaction from start to finish.</p>
+        </section>
+
+        <section class="py-4">
+            <h2>Our Values</h2>
+            <ul>
+                <li><strong>Reliability:</strong> We prioritize dependable service providers who consistently deliver high-quality work.</li>
+                <li><strong>Trust:</strong> We build trust through transparency and secure transactions.</li>
+                <li><strong>Customer Satisfaction:</strong> Your satisfaction is our top priority. We are dedicated to providing exceptional customer support.</li>
+                <li><strong>Innovation:</strong> We continuously improve our platform to offer the best possible experience.</li>
+            </ul>
+        </section>
+
+        <section class="py-4">
+            <h2>The Team</h2>
+            <p>Our team comprises experienced software developers, designers, and customer service professionals who are passionate about creating a positive impact on the lives of our users.</p>
+        </section>
+    </div>
+</body>
+</html>

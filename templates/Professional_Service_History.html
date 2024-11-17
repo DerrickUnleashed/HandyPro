@@ -10,11 +10,12 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
-            color: orange;
+            background-image: url('static/3.jpg'); /* Corrected background image path */
+            background-size: cover; 
+            background-repeat: no-repeat; 
             display: flex;
-            flex-direction: column;
             min-height: 100vh;
+            flex-direction: column;
         }
         .footer {
             background-color: orange;
@@ -49,18 +50,6 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
-        <div class="container">
-            <a class="navbar-brand" href="/">Household Services</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/Professional_Dashboard.html">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div class="container mt-5 main-content animate__animated animate__fadeInUp">
         <h1>Professional Service History</h1>
         <div class="row mb-3">
@@ -105,39 +94,7 @@
         {% else %}
             <p class="animate__animated animate__fadeInUp">No service history found.</p>
         {% endif %}
-    </div>
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    </div>x
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         const requestIdFilter = document.getElementById('requestIdFilter');

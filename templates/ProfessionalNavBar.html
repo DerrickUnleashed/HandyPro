@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Household Services Application</title>
+    <link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color :black; 
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: black;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: white;
+        }
+        .hero {
+            background: linear-gradient(135deg, orange 25%, black 100%);
+            color: black;
+            padding: 100px 0;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: black;
+        }
+        .cta-section {
+            background-color: black;
+            color: black;
+        }
+        .footer {
+            background-image: url('../static/4.jpg'); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            color: black;
+        }
+        .btn-primary{
+            background-color: black;
+            border-color: black;
+        }
+        .btn-outline-primary{
+            color: black;
+            border-color: black;
+        }
+        .btn-light{
+            background-color: black;
+            color: black;
+        }
+        .btn-outline-light{
+            color: white;
+            border-color: white;
+        }
+        #features .col-md-6 > div { 
+            animation: fadeIn 3s ease-in-out infinite; 
+            animation-fill-mode: forwards;
+        }
+        #features .col-md-6:nth-child(2) > div { 
+            animation-delay: 0s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0.25; }
+            to { opacity: 1; }
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+            flex: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .button_gap {
+            margin-left: 2%;
+            margin-right: 2%;
+            padding: 2px;
+        }
+        .heading {
+            font-size: 40px;
+            font-family: "Special Elite", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .ul_list_size {
+            width: 35%;
+            margin-left: 10%;
+        }
+        .button_design {
+            font-size: 80%;
+            color :white;
+            border-color: white;
+        }
+        .iframe_dim {
+            margin-top: 5%;
+            width: 100%;
+            display: flex;
+            flex-direction: column; 
+            background-color: black; 
+            overflow: hidden;
+        }
+        .second-iframe { 
+            flex-grow: 1; 
+            border: none; 
+            margin: 0; 
+            padding: 0;
+            min-height: 100vh;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
+        <a class="navbar-brand heading" href="/home" target="_top">Household Services</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto ul_list_size">
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/professionalProfileEdit" target="_top">Profile</a>
+                </li>
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/professional" target="_top">Home</a>
+                </li>
+                <li class="nav-item button_gap">
+                    <a class="btn btn-outline-light btn-sm button_design" href="/logout" target="_top">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

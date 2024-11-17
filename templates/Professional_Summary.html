@@ -11,8 +11,9 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
-            color: orange;
+            background-image: url('static/3.jpg'); /* Corrected background image path */
+            background-size: cover; 
+            background-repeat: no-repeat; 
             display: flex;
             min-height: 100vh;
             flex-direction: column;
@@ -48,21 +49,6 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInUp">
-        <div class="container">
-            <a class="navbar-brand" href="/">Household Services</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/Professional_Dashboard.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div class="container mt-5 main-content animate__animated animate__fadeInUp">
         <h1>Professional Summary</h1>
         <div class="chart-container">
@@ -84,16 +70,16 @@
                     label: 'Service Requests',
                     data: [8, 5, 3], 
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)'
                     ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
-                    ],
-                    borderWidth: 1
+                borderColor: [
+                    'rgba(0, 0, 0, 0.6)',
+                    'rgba(0, 0, 0, 0.6)',
+                    'rgba(0, 0, 0, 0.6)'
+                ],
+                borderWidth: 2
                 }]
             };
 
@@ -103,20 +89,20 @@
                     label: 'Rating Distribution',
                     data: [1, 2, 3, 4, 5], 
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)'
+                        ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
+                        'rgba(0, 0, 0, 0.6)',
+                        'rgba(0, 0, 0, 0.6)',
+                        'rgba(0, 0, 0, 0.6)',
+                        'rgba(0, 0, 0, 0.6)',
+                        'rgba(0, 0, 0, 0.6)'
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 }]
             };
 
@@ -125,7 +111,7 @@
                 datasets: [{
                     label: 'Average Rating Over Time',
                     data: [3.5, 4.0, 4.2, 4.5], // Hardcoded data
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: 'red',
                     fill: false,
                     tension: 0.1
                 }]
@@ -137,6 +123,7 @@
                 options: {
                     scales: {
                         y: {
+                            max: 10,
                             beginAtZero: true
                         }
                     }
@@ -171,38 +158,6 @@
         </script>
         <div><h3>Average Rating: 4.2</h3></div>
     </div>
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>

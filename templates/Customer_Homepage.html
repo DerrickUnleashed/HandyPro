@@ -10,8 +10,9 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
-            color: orange;
+            background-image: url('static/3.jpg'); /* Corrected background image path */
+            background-size: cover; 
+            background-repeat: no-repeat; 
             display: flex;
             min-height: 100vh;
             flex-direction: column;
@@ -25,12 +26,12 @@
             color: black;
         }
         .btn-primary{
-            background-color: orange;
-            border-color: black;
+            background-color: black;
+            border-color: white;
         }
         .footer {
-            background-color: orange;
-            color: black;
+            background-color: black;
+            color: whi;
             flex-shrink: 0;
         }
         .main-content {
@@ -45,69 +46,19 @@
             to { opacity: 1; }
         }
         .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Centers content vertically */
+            flex-grow: 1; /* Centers content vertically */
             align-items: center; /* Centers content horizontally */
             text-align: center;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
-        <div class="container">
-            <a class="navbar-brand" href="/">Household Services</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/Customer_Profile.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div class="container mt-5 main-content animate__animated animate__fadeInUp">
         <h1>Customer Homepage</h1>
-        <a href="/Customer_Search.html" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">Search for Services</a>
-        <a href="/Customer_Service_History.html" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">View Service History</a>
-        <a href="/Customer_Summary.html" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">View Summary</a>
+        <a href="/customerSearch" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">Search for Services</a>
+        <a href="/customerServiceHistory" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">View Service History</a>
+        <a href="/customerSummary" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">View Summary</a>
     </div>
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

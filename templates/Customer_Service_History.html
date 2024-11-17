@@ -8,22 +8,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        .gap{
-            margin-top : 2%;
-            margin-bottom : 2%;
+        .gap {
+            margin-top: 2%;
+            margin-bottom: 2%;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
-            color: orange;
+            background-image: url('static/3.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             display: flex;
-            min-height: 100vh;
             flex-direction: column;
         }
         .footer {
             background-color: orange;
             color: black;
-            flex-shrink: 0; /* Prevent footer from shrinking */
+            flex-shrink: 0;
         }
         .navbar {
             background-color: orange;
@@ -34,7 +34,7 @@
             color: black;
         }
         .main-content {
-            flex-grow: 1; /* Allow main content to grow */
+            flex-grow: 1;
         }
         .container {
             animation: fadeIn 1s ease-in-out;
@@ -43,34 +43,33 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        .close-button-container {
-            display: none; /* Initially hide the container */
+        .review-form {
+            margin: 0;
+            padding: 0;
         }
-        tr.accepted .close-button-container {
-            display: block; /* Show container if row has class 'accepted' */
+        .invalid-feedback {
+            display: none;
+            color: #dc3545;
+            font-size: 0.875em;
+        }
+        input:invalid + .invalid-feedback {
+            display: block;
+        }
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+            margin-left: 5px;
+        }
+        .btn-cancel:hover {
+            background-color: #c82333;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown">
-        <div class="container">
-            <a class="navbar-brand" href="/">Household Services</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/Customer_Homepage.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container mt-5 main-content animate__animated animate__fadeInUp">
+    <div class="totgap container mt-5 main-content animate__animated animate__fadeInUp">
         <h1 class="gap">Customer Service History</h1>
         {% if service_history %}
-            <form method="POST">
             <table class="table table-dark table-striped animate__animated animate__fadeInUp">
                 <thead>
                     <tr>
@@ -94,56 +93,116 @@
                             <td>{{ row[3] }}</td>
                             <td>{{ row[4] }}</td>
                             <td>{{ row[5] }}</td>
-                            <td>{% if row[5] == 'Accepted' %}<input type="number" name="rating" min="1" max="5" required>{% else %}{{ row[6] }}{% endif %}</td>
-                            <td>{% if row[5] == 'Accepted' %}<textarea name="review" required></textarea>{% else %}{{ row[7] }}{% endif %}</td>
                             <td>
-                                <div class="close-button-container">
-                                    {% if row[5] == 'Accepted' %}
-                                    <button type="submit" class="btn btn-primary btn-sm close-request-button" name="request_id" value="{{ row[0] }}">Submit Review</button>
-                                    {% endif %}
-                                </div>
+                                {% if row[5] == 'Accepted' %}
+                                    <form class="review-form" method="POST" onsubmit="return validateForm(this)">
+                                        <input type="hidden" name="request_id" value="{{ row[0] }}">
+                                        <input type="number" name="rating" min="1" max="5" class="form-control form-control-sm" required>
+                                        <div class="invalid-feedback">Please enter a rating between 1 and 5</div>
+                                    </form>
+                                {% else %}
+                                    {{ row[6] }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if row[5] == 'Accepted' %}
+                                    <form class="review-form" method="POST">
+                                        <input type="hidden" name="request_id" value="{{ row[0] }}">
+                                        <textarea name="review" class="form-control form-control-sm" required></textarea>
+                                    </form>
+                                {% else %}
+                                    {{ row[7] }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if row[5] == 'Accepted' %}
+                                    <button onclick="submitReview({{ row[0] }})" class="btn btn-primary btn-sm">Submit Review</button>
+                                {% elif row[5] == 'Requested' %}
+                                    <form method="POST" style="display: inline;">
+                                        <input type="hidden" name="cancel_request_id" value="{{ row[0] }}">
+                                        <button type="button" onclick="confirmCancel({{ row[0] }})" class="btn btn-cancel btn-sm">
+                                            Cancel Request
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            </form>
         {% else %}
             <p class="animate__animated animate__fadeInUp">No service history found.</p>
         {% endif %}
     </div>
-    <footer class="footer py-4 animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Household Services</h5>
-                    <p>Your go-to platform for reliable home services.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Connect With Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p>&copy; 2024 Household Services. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+
+    <script>
+        function validateForm(form) {
+            const rating = form.querySelector('input[name="rating"]');
+            if (rating.value < 1 || rating.value > 5) {
+                rating.classList.add('is-invalid');
+                return false;
+            }
+            return true;
+        }
+
+        function submitReview(requestId) {
+            const row = document.querySelector(`tr:has(input[value="${requestId}"])`);
+            const ratingForm = row.querySelector('form:has(input[name="rating"])');
+            const reviewForm = row.querySelector('form:has(textarea[name="review"])');
+            
+            if (!validateForm(ratingForm)) {
+                return;
+            }
+
+            const rating = ratingForm.querySelector('input[name="rating"]').value;
+            const review = reviewForm.querySelector('textarea[name="review"]').value;
+
+            if (!rating || !review) {
+                alert('Please fill in both rating and review');
+                return;
+            }
+
+            // Create a combined form to submit both rating and review
+            const combinedForm = document.createElement('form');
+            combinedForm.method = 'POST';
+            combinedForm.style.display = 'none';
+
+            const requestIdInput = document.createElement('input');
+            requestIdInput.name = 'request_id';
+            requestIdInput.value = requestId;
+
+            const ratingInput = document.createElement('input');
+            ratingInput.name = 'rating';
+            ratingInput.value = rating;
+
+            const reviewInput = document.createElement('input');
+            reviewInput.name = 'review';
+            reviewInput.value = review;
+
+            combinedForm.appendChild(requestIdInput);
+            combinedForm.appendChild(ratingInput);
+            combinedForm.appendChild(reviewInput);
+
+            document.body.appendChild(combinedForm);
+            combinedForm.submit();
+        }
+
+        function confirmCancel(requestId) {
+            if (confirm('Are you sure you want to cancel this service request?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.style.display = 'none';
+
+                const cancelInput = document.createElement('input');
+                cancelInput.name = 'cancel_request_id';
+                cancelInput.value = requestId;
+
+                form.appendChild(cancelInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
