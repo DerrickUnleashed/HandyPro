@@ -7,15 +7,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('static/3.jpg'); /* Corrected background image path */
-            background-size: cover; 
+            background-image: url('static/3.jpg');
+            background-size: cover;
             background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         .navbar {
             background-color: orange;
@@ -32,10 +35,23 @@
         .container {
             animation: fadeIn 1s ease-in-out;
             flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 20px;
         }
         .btn-primary {
-            background-color: white; /* Added background color for better visibility */
-            color: black; /* Added text color for better visibility */
+            background-color: white;
+            color: black;
+        }
+        h1, h2, p {
+            margin-bottom: 10px;
+        }
+        #chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -50,10 +66,29 @@
             <h2>{{ service[0] }}</h2>
             <p>{{ service[1] }}</p>
             <p>Price: ${{ service[2] }}</p>
+            <div id="chart-container">
+                <canvas id="serviceDemandChart"></canvas>
+            </div>
+            <script>
+                const ctx = document.getElementById('serviceDemandChart').getContext('2d');
+                const generateRandomData = () => Array.from({length: 6}, () => Math.floor(Math.random() * 20)); // Generate random data
+                const randomData = generateRandomData();
+                const serviceDemandChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Demand',
+                            data: randomData,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    }
+                });
+            </script>
         {% else %}
             <p>No service found.</p>
         {% endif %}
-
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

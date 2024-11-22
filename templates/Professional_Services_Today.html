@@ -50,6 +50,44 @@
             justify-content: center; /* Centers content vertically */
             align-items: center; /* Centers content horizontally */
         }
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .service-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -82,52 +120,59 @@
             </div>
         </div>
         {% if requests %}
-            <table class="table table-dark table-striped" id="requestsTable">
-                <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>Service Name</th>
-                        <th>Customer Name</th>
-                        <th>Customer Phone</th>
-                        <th>Customer Address</th>
-                        <th>Customer PostalCode</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for request in requests %}
-                        <tr>
-                            <td>{{ request[4] }}</td>
-                            <td>{{ request[5] }}</td>
-                            <td>{{ request[0] }}</td>
-                            <td>{{ request[1] }}</td>
-                            <td>{{ request[2] }}</td>
-                            <td>{{ request[3] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% for request in requests %}
+                <div class="service-card animate__animated animate__fadeInUp">
+                    <div class="service-info">
+                        <div class="info-group">
+                            <span class="info-label">Request ID</span>
+                            <span class="info-value">{{ request[4] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Service Name</span>
+                            <span class="info-value">{{ request[5] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Customer Name</span>
+                            <span class="info-value">{{ request[0] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Customer Phone</span>
+                            <span class="info-value">{{ request[1] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Customer Address</span>
+                            <span class="info-value">{{ request[2] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Customer Postal Code</span>
+                            <span class="info-value">{{ request[3] }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
             <p>No pending requests.</p>
         {% endif %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Add filtering script here (similar to Professional_Service_History.html)
         const requestIdFilter = document.getElementById('requestIdFilter');
         const serviceNameFilter = document.getElementById('serviceNameFilter');
         const customerNameFilter = document.getElementById('customerNameFilter');
         const customerPhoneFilter = document.getElementById('customerPhoneFilter');
         const customerAddressFilter = document.getElementById('customerAddressFilter');
         const customerPostalCodeFilter = document.getElementById('customerPostalCodeFilter');
-        const requestsTable = document.getElementById('requestsTable');
+        const serviceCards = document.querySelectorAll('.service-card');
 
-        requestIdFilter.addEventListener('input', filterTable);
-        serviceNameFilter.addEventListener('input', filterTable);
-        customerNameFilter.addEventListener('input', filterTable);
-        customerPhoneFilter.addEventListener('input', filterTable);
-        customerAddressFilter.addEventListener('input', filterTable);
-        customerPostalCodeFilter.addEventListener('input', filterTable);
+        requestIdFilter.addEventListener('input', filterCards);
+        serviceNameFilter.addEventListener('input', filterCards);
+        customerNameFilter.addEventListener('input', filterCards);
+        customerPhoneFilter.addEventListener('input', filterCards);
+        customerAddressFilter.addEventListener('input', filterCards);
+        customerPostalCodeFilter.addEventListener('input', filterCards);
 
-        function filterTable() {
+        function filterCards() {
             const requestId = parseInt(requestIdFilter.value) || '';
             const serviceName = serviceNameFilter.value.toLowerCase();
             const customerName = customerNameFilter.value.toLowerCase();
@@ -135,23 +180,22 @@
             const customerAddress = customerAddressFilter.value.toLowerCase();
             const customerPostalCode = customerPostalCodeFilter.value.toLowerCase();
 
-            const rows = requestsTable.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                const requestIdCell = parseInt(row.cells[0].textContent) || '';
-                const serviceNameCell = row.cells[1].textContent.toLowerCase();
-                const customerNameCell = row.cells[2].textContent.toLowerCase();
-                const customerPhoneCell = row.cells[3].textContent.toLowerCase();
-                const customerAddressCell = row.cells[4].textContent.toLowerCase();
-                const customerPostalCodeCell = row.cells[5].textContent.toLowerCase();
+            serviceCards.forEach(card => {
+                const requestIdCell = parseInt(card.querySelector('.info-value:nth-child(1)').textContent) || '';
+                const serviceNameCell = card.querySelector('.info-value:nth-child(2)').textContent.toLowerCase();
+                const customerNameCell = card.querySelector('.info-value:nth-child(3)').textContent.toLowerCase();
+                const customerPhoneCell = card.querySelector('.info-value:nth-child(4)').textContent.toLowerCase();
+                const customerAddressCell = card.querySelector('.info-value:nth-child(5)').textContent.toLowerCase();
+                const customerPostalCodeCell = card.querySelector('.info-value:nth-child(6)').textContent.toLowerCase();
 
-                const showRow = (requestId === '' || requestIdCell === requestId) &&
+                const showCard = (requestId === '' || requestIdCell === requestId) &&
                                (serviceName === '' || serviceNameCell.includes(serviceName)) &&
                                (customerName === '' || customerNameCell.includes(customerName)) &&
                                (customerPhone === '' || customerPhoneCell.includes(customerPhone)) &&
                                (customerAddress === '' || customerAddressCell.includes(customerAddress)) &&
                                (customerPostalCode === '' || customerPostalCodeCell.includes(customerPostalCode));
 
-                row.style.display = showRow ? '' : 'none';
+                card.style.display = showCard ? '' : 'none';
             });
         }
     </script>

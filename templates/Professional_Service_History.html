@@ -47,6 +47,47 @@
             justify-content: center; /* Centers content vertically */
             align-items: center; /* Centers content horizontally */
         }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%; /* Stretch cards to fill the container width */
+        }
+
+        .service-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Ensures 4 equal columns for Request ID, Service Name, Rating, and Review */
+            gap: 1.5rem;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -71,62 +112,63 @@
             </div>
         </div>
         {% if service_history %}
-        <table class="table table-dark table-striped animate__animated animate__fadeInUp" id="serviceHistoryTable">
-            <thead>
-                <tr>
-                    <th>Request ID</th>
-                    <th>Service Name</th>
-                    <th>Rating</th>
-                    <th>Review</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for service in service_history %}
-                    <tr>
-                        <td>{{ service[0] }}</td>
-                        <td>{{ service[3] }}</td>
-                        <td>{{ service[1] }}</td>
-                        <td>{{ service[2] }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            {% for service in service_history %}
+                <div class="service-card animate__animated animate__fadeInUp">
+                    <div class="service-info">
+                        <div class="col-md-3 info-group">
+                            <span class="info-label">Request ID</span>
+                            <span class="info-value">{{ service[0] }}</span>
+                        </div>
+                        <div class="col-md-3 info-group">
+                            <span class="info-label">Service Name</span>
+                            <span class="info-value">{{ service[3] }}</span>
+                        </div>
+                        <div class="col-md-3 info-group">
+                            <span class="info-label">Rating</span>
+                            <span class="info-value">{{ service[1] }}</span>
+                        </div>
+                        <div class="col-md-6 info-group">
+                            <span class="info-label">Review</span>
+                            <span class="info-value">{{ service[2] }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
             <p class="animate__animated animate__fadeInUp">No service history found.</p>
         {% endif %}
-    </div>x
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         const requestIdFilter = document.getElementById('requestIdFilter');
         const serviceNameFilter = document.getElementById('serviceNameFilter');
         const ratingFilter = document.getElementById('ratingFilter');
         const reviewFilter = document.getElementById('reviewFilter');
-        const serviceHistoryTable = document.getElementById('serviceHistoryTable');
+        const serviceCards = document.querySelectorAll('.service-card');
 
-        requestIdFilter.addEventListener('input', filterTable);
-        serviceNameFilter.addEventListener('input', filterTable);
-        ratingFilter.addEventListener('input', filterTable);
-        reviewFilter.addEventListener('input', filterTable);
+        requestIdFilter.addEventListener('input', filterCards);
+        serviceNameFilter.addEventListener('input', filterCards);
+        ratingFilter.addEventListener('input', filterCards);
+        reviewFilter.addEventListener('input', filterCards);
 
-        function filterTable() {
+        function filterCards() {
             const requestId = parseInt(requestIdFilter.value) || '';
             const serviceName = serviceNameFilter.value.toLowerCase();
             const rating = parseInt(ratingFilter.value) || '';
             const review = reviewFilter.value.toLowerCase();
 
-            const rows = serviceHistoryTable.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                const requestIdCell = parseInt(row.cells[0].textContent) || '';
-                const serviceNameCell = row.cells[1].textContent.toLowerCase();
-                const ratingCell = parseInt(row.cells[2].textContent) || '';
-                const reviewCell = row.cells[3].textContent.toLowerCase();
+            serviceCards.forEach(card => {
+                const requestIdCell = parseInt(card.querySelector('.info-value:nth-child(1)').textContent) || '';
+                const serviceNameCell = card.querySelector('.info-value:nth-child(2)').textContent.toLowerCase();
+                const ratingCell = parseInt(card.querySelector('.info-value:nth-child(3)').textContent) || '';
+                const reviewCell = card.querySelector('.info-value:nth-child(4)').textContent.toLowerCase();
 
-                const showRow = (requestId === '' || requestIdCell === requestId) &&
+                const showCard = (requestId === '' || requestIdCell === requestId) &&
                                (serviceName === '' || serviceNameCell.includes(serviceName)) &&
                                (rating === '' || ratingCell === rating) &&
                                (review === '' || reviewCell.includes(review));
 
-                row.style.display = showRow ? '' : 'none';
+                card.style.display = showCard ? '' : 'none';
             });
         }
     </script>

@@ -11,9 +11,9 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('static/3.jpg'); /* Corrected background image path */
-            background-size: cover; 
-            background-repeat: no-repeat; 
+            background-image: url('static/3.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             display: flex;
             min-height: 100vh;
             flex-direction: column;
@@ -21,7 +21,7 @@
         .footer {
             background-color: black;
             color: white;
-            flex-shrink: 0; /* Prevent footer from shrinking */
+            flex-shrink: 0;
         }
         .navbar {
             background-color: black;
@@ -32,7 +32,7 @@
             color: white;
         }
         .main-content {
-            flex-grow: 1; /* Allow main content to grow */
+            flex-grow: 1;
         }
         .container {
             animation: fadeIn 1s ease-in-out;
@@ -41,40 +41,77 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .service-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+        .info-value {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .customer-detail-card {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-
     <div class="container mt-5 main-content animate__animated animate__fadeInUp">
         <h1>Customer Summary</h1>
-        <h2>Customer Details</h2>
-        <p>Name: {{ customer[3] }}</p>
-        <p>Email: {{ customer[1] }}</p>
-        <p>Phone: {{ customer[4] }}</p>
-        <p>Address: {{ customer[5]}}</p>
-        <p>Postal Code: {{ customer[6] }}</p>
+        <div class="card customer-detail-card">
+            <div class="card-body">
+                <h5 class="card-title">Customer Details</h5>
+                <p class="card-text">Name: {{ customer[3] }}</p>
+                <p class="card-text">Email: {{ customer[1] }}</p>
+                <p class="card-text">Phone: {{ customer[4] }}</p>
+                <p class="card-text">Address: {{ customer[5] }}</p>
+                <p class="card-text">Postal Code: {{ customer[6] }}</p>
+            </div>
+        </div>
 
         <h2>Past Service Requests</h2>
-        <table class="table table-dark table-striped animate__animated animate__fadeInUp">
-            <thead>
-                <tr>
-                    <th>Service Name</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if service_history %}
-                    {% for service in service_history %}
-                        <tr>
-                            <td>{{ service[0] }}</td>
-                            <td>{{ service[1] }}</td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr><td colspan="2">No service history found.</td></tr>
-                {% endif %}
-            </tbody>
-        </table>
+        {% if service_history %}
+            {% for service in service_history %}
+                <div class="service-card animate__animated animate__fadeInUp">
+                    <div class="service-info">
+                        <div class="info-group">
+                            <span class="info-label">Service Name</span>
+                            <span class="info-value">{{ service[0] }}</span>
+                        </div>
+                        <div class="info-group">
+                            <span class="info-label">Status</span>
+                            <span class="info-value">{{ service[1] }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="animate__animated animate__fadeInUp">No service history found.</p>
+        {% endif %}
 
         <h2>Average Rating</h2>
         <p>Average Rating: {{ average_rating if average_rating is not none else 'N/A' }}</p>
@@ -93,8 +130,6 @@
                     borderWidth: 4
                 }]
             };
-
-            
 
             const pastRequestsChart = new Chart(document.getElementById('pastRequestsChart'), {
                 type: 'bar',
