@@ -299,6 +299,10 @@ def ADMINMANAGEPROFESSIONALS():
         if action == 'reject':
             try:
                 professional_id = int(professional_id)
+                cursor.execute("SELECT Email FROM Professionals WHERE ProfessionalID = ?", (professional_id,))
+                email = cursor.fetchone()[0]
+                cursor.execute("DELETE FROM user_credentials WHERE email = ?", (email,))
+                conn.commit()
                 cursor.execute("DELETE FROM Professionals WHERE ProfessionalID = ?", (professional_id,))
                 conn.commit()
                 print('Professional rejected successfully!')
