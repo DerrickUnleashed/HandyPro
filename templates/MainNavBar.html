@@ -27,15 +27,10 @@
         .navbar-brand {
             font-weight: bold;
             color: white;
+            transition: transform 0.3s ease-in-out;
         }
-        .hero {
-            background: linear-gradient(135deg, orange 25%, black 100%);
-            color: black;
-            padding: 100px 0;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
+        .navbar-brand:hover {
+            transform: scale(1.1); /* Slight enlargement */
         }
         .feature-icon {
             font-size: 3rem;
@@ -73,10 +68,6 @@
         }
         #features .col-md-6:nth-child(2) > div { 
             animation-delay: 0s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0.25; }
-            to { opacity: 1; }
         }
         .container {
             animation: fadeIn 1s ease-in-out;

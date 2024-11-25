@@ -143,11 +143,16 @@ def loginPage():
             session['user_type'] = "professional"
             conn = sqlite3.connect('database.db')
             cursor = conn.cursor()
-            cursor.execute("SELECT ProfessionalID FROM Professionals WHERE email=?", (email,))
+            cursor.execute("SELECT ProfessionalID,Approved FROM Professionals WHERE email=?", (email,))
             id = cursor.fetchone()
             session['professional_id'] = id[0]
             print(session['professional_id'])
-            return redirect(url_for('professional_dashboard'))
+            approved = id[1]
+            if(approved):
+                return redirect(url_for('professional_dashboard'))
+            else:
+                flash("Please wait for Admin Approval")
+                return redirect(url_for('login'))
         conn.close()
     else:
         return render_template('Login.html')
@@ -699,6 +704,12 @@ def CUSTOMERPROFILE():
     customer = cursor.fetchone()
     conn.close()
     if request.method == 'POST':
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT email FROM Customers WHERE CustomerID = ?",(customer_id,))
+        oemail = cursor.fetchone()[0]
+        cursor.execute("SELECT id FROM user_credentials WHERE email=?",(oemail,))
+        id = cursor.fetchone()[0]
         name = request.form.get("name")
         email = request.form.get("email")
         address = request.form.get("address")
@@ -706,14 +717,13 @@ def CUSTOMERPROFILE():
         password = request.form.get("password")
         postalcode = request.form.get("postal_code")
         updated_data = (name, email, address, phone, password, postalcode, customer_id)
-        print(session.get('customer_id'))
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
+        cursor.execute("UPDATE user_credentials SET email = ? WHERE id = ?",(email,id))
+        conn.commit()
         cursor.execute("""
             UPDATE Customers
             SET Name = ?, Email = ?, Address = ?, Phone = ?, Password = ?, PostalCode = ?
             WHERE CustomerID = ?
-        """, updated_data)
+        """, updated_data)  
         conn.commit()
         conn.close()
         return redirect(url_for('customer_profile')) 
@@ -734,6 +744,12 @@ def PROFESSIONALPROFILEEDIT():
     customer = cursor.fetchone()
     conn.close()
     if request.method == 'POST':
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT email FROM Professionals WHERE ProfessionalID = ?",(professional_id,))
+        oemail = cursor.fetchone()[0]
+        cursor.execute("SELECT id FROM user_credentials WHERE email=?",(oemail,))
+        id = cursor.fetchone()[0]
         name = request.form.get("name")
         email = request.form.get("email")
         address = request.form.get("address")
@@ -743,8 +759,8 @@ def PROFESSIONALPROFILEEDIT():
         experience = request.form.get("experience")
         skills = request.form.get("skills")
         updated_data = (name, email, address, phone, password, postalcode, experience, skills, professional_id)
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
+        cursor.execute("UPDATE user_credentials SET email = ? WHERE id = ?",(email,id))
+        conn.commit()
         cursor.execute("""
             UPDATE Professionals
             SET Name = ?, Email = ?, Address = ?, Phone = ?, Password = ?, PostalCode = ?,experience = ?,skills = ?
