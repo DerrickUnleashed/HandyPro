@@ -97,12 +97,12 @@ def SIGNUPCUSTOMER():
             cursor.execute("INSERT INTO Customers (Name, Email, Phone, Address, PostalCode, Password) VALUES (?, ?, ?, ?, ?, ?)", (name, email, phone, address, postalCode, password))
             cursor.execute("INSERT INTO user_credentials (email, password, user_type) VALUES (?, ?, ?)", (email, password, "Customer"))
             conn.commit()
-            print('Customer registered successfully!')
+            flash('Customer registered successfully!')
         except sqlite3.IntegrityError:
-            print('Email already exists. Please use a different email.')
+            flash('Email already exists. Please use a different email.')
             flash('Email already exists. Please use a different email.', 'error') 
         except Exception as e:
-            print(f'An error occurred: {e}')
+            flash(f'An error occurred: {e}')
             flash(f'An error occurred: {e}', 'error') 
         finally:
             conn.close()
@@ -115,7 +115,7 @@ def login():
 
 @app.route('/Login.html',methods=['GET','POST'])
 def loginPage():
-    print("works")
+    flash("works")
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -137,7 +137,7 @@ def loginPage():
             cursor.execute("SELECT CustomerID FROM Customers WHERE email=?", (email,))
             id = cursor.fetchone()
             session['customer_id'] = id[0]
-            print(session['customer_id'])
+            flash(session['customer_id'])
             return redirect(url_for('customer_homepage'))
         elif user[3] == "Professional":
             session['user_type'] = "professional"
@@ -146,7 +146,7 @@ def loginPage():
             cursor.execute("SELECT ProfessionalID,Approved FROM Professionals WHERE email=?", (email,))
             id = cursor.fetchone()
             session['professional_id'] = id[0]
-            print(session['professional_id'])
+            flash(session['professional_id'])
             approved = id[1]
             if(approved):
                 return redirect(url_for('professional_dashboard'))
@@ -179,12 +179,12 @@ def SIGNUPPROFESSIONAL():
             cursor.execute("INSERT INTO Professionals (Name, Email, Experience, Skills, Address, PostalCode, Password) VALUES (?, ?, ?, ?, ?, ?, ?)", (name, email, experience, skills, address, postalCode, password))
             cursor.execute("INSERT INTO user_credentials (email, password, user_type) VALUES (?, ?, ?)", (email, password, "Professional"))
             conn.commit()
-            print('Professional registered successfully!')
+            flash('Professional registered successfully!')
         except sqlite3.IntegrityError:
-            print('Email already exists. Please use a different email.')
+            flash('Email already exists. Please use a different email.')
             flash('Email already exists. Please use a different email.', 'error') 
         except Exception as e:
-            print(f'An error occurred: {e}')
+            flash(f'An error occurred: {e}')
             flash(f'An error occurred: {e}', 'error') 
         finally:
             conn.close()
@@ -244,7 +244,7 @@ def adminManageServices():
             cursor.execute("INSERT INTO Services (ServiceName, BasePrice) VALUES (?, ?)", (service_name, base_price))
             conn.commit()
             conn.close()
-            print('Service added successfully!')
+            flash('Service added successfully!')
         elif action == 'update':
             service_name = request.form['service_name']
             base_price = request.form['base_price']
@@ -253,14 +253,14 @@ def adminManageServices():
             cursor.execute("UPDATE Services SET ServiceName = ?, BasePrice = ? WHERE ServiceID = ?", (service_name, base_price, service_id))
             conn.commit()
             conn.close()
-            print('Service updated successfully!')
+            flash('Service updated successfully!')
         elif action == 'delete':
             conn = sqlite3.connect('database.db')
             cursor = conn.cursor()
             cursor.execute("DELETE FROM Services WHERE ServiceID = ?", (service_id,))
             conn.commit()
             conn.close()
-            print('Service deleted successfully!')
+            flash('Service deleted successfully!')
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Services")
@@ -284,18 +284,18 @@ def ADMINMANAGEPROFESSIONALS():
     if request.method == 'POST':
         action = request.form.get('action')
         professional_id = request.form.get('professional_id')
-        print(professional_id)
+        flash(professional_id)
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         if action == 'approve':
             cursor.execute("UPDATE Professionals SET Approved = 1 WHERE ProfessionalID = ?", (professional_id,))
             conn.commit()
-            print('Professional approved successfully!')
+            flash('Professional approved successfully!')
         elif action == 'disapprove':
             cursor.execute("UPDATE Professionals SET Approved = 0 WHERE ProfessionalID = ?", (professional_id,))
             conn.commit()
-            print('Professional disapproved successfully!')
-        print(action)
+            flash('Professional disapproved successfully!')
+        flash(action)
         if action == 'reject':
             try:
                 professional_id = int(professional_id)
@@ -305,11 +305,11 @@ def ADMINMANAGEPROFESSIONALS():
                 conn.commit()
                 cursor.execute("DELETE FROM Professionals WHERE ProfessionalID = ?", (professional_id,))
                 conn.commit()
-                print('Professional rejected successfully!')
+                flash('Professional rejected successfully!')
             except ValueError:
-                print('Invalid professional ID.')
+                flash('Invalid professional ID.')
             except Exception as e:
-                print(f'An error occurred while rejecting the professional: {e}')
+                flash(f'An error occurred while rejecting the professional: {e}')
         conn.close()
         return redirect(url_for('admin_manage_professionals'))
     return render_template('Admin_Manage_Professionals.html', professionals=professionals)
@@ -332,7 +332,7 @@ def ADMINMANAGEREQUESTS():
             cursor.execute("INSERT INTO Services (ServiceName, BasePrice) VALUES (?, ?)", (service_name, base_price))
             conn.commit()
             conn.close()
-            print('Service added successfully!')
+            flash('Service added successfully!')
         elif action == 'update':
             service_name = request.form['service_name']
             base_price = request.form['base_price']
@@ -341,14 +341,14 @@ def ADMINMANAGEREQUESTS():
             cursor.execute("UPDATE Services SET ServiceName = ?, BasePrice = ? WHERE ServiceID = ?", (service_name, base_price, service_id))
             conn.commit()
             conn.close()
-            print('Service updated successfully!')
+            flash('Service updated successfully!')
         elif action == 'delete':
             conn = sqlite3.connect('database.db')
             cursor = conn.cursor()
             cursor.execute("DELETE FROM Services WHERE ServiceID = ?", (service_id,))
             conn.commit()
             conn.close()
-            print('Service deleted successfully!')
+            flash('Service deleted successfully!')
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM ServiceRequests")
@@ -404,7 +404,7 @@ def customer_service_history():
 def CUSTOMERSERVICEHISTORY():
     customer_id = session.get('customer_id')
     if not customer_id:
-        print("Please log in to view your service history.")
+        flash("Please log in to view your service history.")
         return redirect(url_for('login'))
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -431,7 +431,7 @@ def CUSTOMERSERVICEHISTORY():
                 conn.close()
                 return redirect(url_for('CUSTOMERSERVICEHISTORY'))
             except Exception as e:
-                print(f"Error cancelling request: {e}")
+                flash(f"Error cancelling request: {e}")
                 conn.close()
                 return redirect(url_for('CUSTOMERSERVICEHISTORY'))
         request_id = request.form.get('request_id')
@@ -446,9 +446,9 @@ def CUSTOMERSERVICEHISTORY():
                     WHERE RequestID = ? AND CustomerID = ? AND Status = 'Accepted'
                 """, (rating, review, request_id, customer_id))
                 conn.commit()
-                print(f"Review and rating submitted for request {request_id}")
+                flash(f"Review and rating submitted for request {request_id}")
             except Exception as e:
-                print(f"Error updating review and rating: {e}")
+                flash(f"Error updating review and rating: {e}")
             finally:
                 conn.close()
             return redirect(url_for('CUSTOMERSERVICEHISTORY'))
@@ -456,7 +456,7 @@ def CUSTOMERSERVICEHISTORY():
     if service_history:
         return render_template('Customer_Service_History.html', service_history=service_history)
     else:
-        print(f'No service history found for customer ID {customer_id}')
+        flash(f'No service history found for customer ID {customer_id}')
         return render_template('Customer_Service_History.html')
 
 @app.route('/addService',methods=['GET'])
@@ -474,9 +474,9 @@ def add_service():
         try:
             cursor.execute("INSERT INTO Services (ServiceName, Description, BasePrice) VALUES (?, ?, ?)", (service_name, description, base_price))
             conn.commit()
-            print('Service added successfully!')
+            flash('Service added successfully!')
         except Exception as e:
-            print(f'An error occurred: {e}')
+            flash(f'An error occurred: {e}')
         finally:
             conn.close()
         return redirect(url_for('admin_manage_services'))
@@ -496,7 +496,7 @@ def admin_summary():
     cur = conn.cursor()
     cur.execute("SELECT Rating , COUNT(Rating) FROM ServiceRequests GROUP BY Rating HAVING Rating NOT NULL")
     customer_data = cur.fetchall()
-    print(customer_data)
+    flash(customer_data)
     ratings = {}
     for i in customer_data:
         ratings[str(i[0])] = i[1]
@@ -550,7 +550,7 @@ def add_service_request():
         customer_id = session.get('customer_id')
 
         if not customer_id:
-            print("Please log in to book a service.")
+            flash("Please log in to book a service.")
             return redirect(url_for('login'))
 
         conn = sqlite3.connect('database.db')
@@ -559,10 +559,10 @@ def add_service_request():
         cursor.execute("INSERT INTO ServiceRequests (serviceID, professionalID,customerID,RequestDate) VALUES (?, ?,?,?)", (service_id, 8, customer_id,time))
         conn.commit()
         conn.close()
-        print('Service request submitted successfully!')
+        flash('Service request submitted successfully!')
         return redirect(url_for('customer_search'))
     except Exception as e:
-        print(f'An error occurred: {e}')
+        flash(f'An error occurred: {e}')
         return redirect(url_for('customer_search'))
 @app.route('/professionalServiceToday',methods=['GET'])
 def professional_services_today():
@@ -572,7 +572,7 @@ def professional_services_today():
 def PROFESSIONALSERVICESTODAY():
     professional_id = session.get('professional_id')
     if not professional_id:
-        print("Please log in as a professional.")
+        flash("Please log in as a professional.")
         return redirect(url_for('login'))
 
     conn = sqlite3.connect('database.db')
@@ -581,7 +581,7 @@ def PROFESSIONALSERVICESTODAY():
                    FROM ServiceRequests sr JOIN Customers c ON c.CustomerID = sr.CustomerID JOIN Services s ON s.ServiceID = sr.ServiceID
                    WHERE Status = ? AND ProfessionalID = ?''', ('Accepted', professional_id))
     requests = cursor.fetchall()
-    print(requests)
+    flash(requests)
     conn.close()
 
     
@@ -645,7 +645,7 @@ def PROFESSIONALSERVICEHISTORY():
     """, (professional_id,))
     service_history = cursor.fetchall()
     conn.close()
-    print(service_history)
+    flash(service_history)
     return render_template('Professional_Service_History.html', service_history=service_history)
 
 @app.route('/professionalRequests',methods=['GET'])
@@ -659,7 +659,7 @@ def PROFESSIONALREQUESTS():
         return redirect(url_for('login'))
     request_id = request.form.get('request_id')
     if request.method =='POST':
-        print(request_id,professional_id)
+        flash(request_id,professional_id)
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute("UPDATE ServiceRequests SET Status = 'Accepted',ProfessionalID = ? WHERE RequestID = ?", (professional_id,request_id))
@@ -721,7 +721,7 @@ def CUSTOMERPROFILE():
         password = request.form.get("password")
         postalcode = request.form.get("postal_code")
         updated_data = (name, email, address, phone, password, postalcode, customer_id)
-        cursor.execute("UPDATE user_credentials SET email = ? WHERE id = ?",(email,id))
+        cursor.execute("UPDATE user_credentials SET email = ? ,password=? WHERE id = ?",(email,password,id))
         conn.commit()
         cursor.execute("""
             UPDATE Customers
@@ -763,7 +763,7 @@ def PROFESSIONALPROFILEEDIT():
         experience = request.form.get("experience")
         skills = request.form.get("skills")
         updated_data = (name, email, address, phone, password, postalcode, experience, skills, professional_id)
-        cursor.execute("UPDATE user_credentials SET email = ? WHERE id = ?",(email,id))
+        cursor.execute("UPDATE user_credentials SET email = ?,password=? WHERE id = ?",(email,password,id))
         conn.commit()
         cursor.execute("""
             UPDATE Professionals
